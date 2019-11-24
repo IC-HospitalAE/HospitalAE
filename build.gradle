@@ -6,7 +6,6 @@ application {
     mainClassName='Main'
 }
 
-}
 
 group 'Group5'
 version '1.0-SNAPSHOT'
