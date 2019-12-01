@@ -1,7 +1,5 @@
 package doctors;
 
-import java.awt.*;
-
 public class Doctor {
 
     private String firstname;
@@ -9,7 +7,7 @@ public class Doctor {
     private String id;
     private boolean state; //says id dr is
     private String workload;
-    //private time_availability;
+    private String[] timeSlot = new String[10];
 
 
     public Doctor(String firstn,String lname, String ID, String work){
@@ -58,5 +56,13 @@ public class Doctor {
 
     public void setWorkload(String workload) {
         this.workload = workload;
+    }
+
+    public void setTimeSlot(String[] timeSlot) {
+        this.timeSlot = timeSlot;
+    }
+
+    public String[] getTimeSlot() {
+        return timeSlot;
     }
 }

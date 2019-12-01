@@ -4,9 +4,12 @@ import java.util.ArrayList;
 public class PatientsDB {
     private ArrayList<Patients> patientsList=new ArrayList<>();
 
+    public int getNumPatient(){
+        return patientsList.size();
+    }
+
     public void addPatient( Patients p){
         patientsList.add(p);
-
     }
 
     public void printDB(){
@@ -16,8 +19,6 @@ public class PatientsDB {
             System.out.println("ID: "+p.getID());
             System.out.println("Notes: "+p.getNotes());
             System.out.println("Phone number: "+p.getPhonenumber());
-
         }
     }
-
 }
