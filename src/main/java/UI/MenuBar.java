@@ -1,10 +1,12 @@
 package UI;
-
+import doctors.printDoctors;
 import patients.printPatients;
+import patients.removePatient;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 
 public class MenuBar extends JMenuBar{
@@ -21,18 +23,33 @@ public class MenuBar extends JMenuBar{
         //pateints menu items
         patientItem=new JMenuItem("Add Patient");
 
-        patientItem.addActionListener(new ActionListener() {
+        patientItem.addActionListener(actionEvent -> {
+            try {
+                patientForm form=new patientForm();
+
+            } catch (SQLException | URISyntaxException e) {
+                e.printStackTrace();
+            }
+        });
+        patients.add(patientItem);
+        add(patients);
+
+
+        JMenuItem patientItem2=new JMenuItem("Discharge patient");
+        patientItem2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                try {
-                    patientForm form=new patientForm();
-                } catch (SQLException e) {
+                try{
+                    removePatient remove=new removePatient();
+                    System.out.println("TEST");
+
+                }catch(SQLException | URISyntaxException e){
                     e.printStackTrace();
                 }
             }
         });
-        add(patients);
-        patients.add(patientItem);
+        add(patientItem2);
+        patients.add(patientItem2);
 
         //dr menu items
         doctorItem=new JMenuItem("Add Doctor");
@@ -41,7 +58,7 @@ public class MenuBar extends JMenuBar{
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
                     doctorForm dr = new doctorForm();
-                } catch (SQLException e) {
+                } catch (SQLException | URISyntaxException e) {
                     e.printStackTrace();
                 }
             }
@@ -71,7 +88,7 @@ public class MenuBar extends JMenuBar{
                 printPatients print=new printPatients();
                 try {
                     print.printP();
-                } catch (SQLException e) {
+                } catch (SQLException | URISyntaxException e) {
                     e.printStackTrace();
                 }
             }
@@ -80,6 +97,17 @@ public class MenuBar extends JMenuBar{
 
         viewItem=new JMenuItem("All Doctors");
         add(view);
+        viewItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                printDoctors printdr=new printDoctors();
+                try{
+                    printdr.printD();
+                } catch (SQLException | URISyntaxException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         view.add(viewItem);
     }
 

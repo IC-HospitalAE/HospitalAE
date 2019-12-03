@@ -1,63 +1,106 @@
 package patients;
-import UI.MenuBar;
+import UI.countRowsRequired;
+import UI.setupFrame;
+import bed.assignBed;
+import database_conn.connectDatabase;
+
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.net.URISyntaxException;
 import java.sql.*;
 
 public class printPatients {
 
-    private JFrame frame;
+    //declatation of vars
+    private setupFrame frame =new setupFrame();
+
+    private JPanel mainPanel=new JPanel(new BorderLayout(8,8));
     private JPanel patientPrintPanel;
+
     private JLabel patientFirstName,patientFamilyName,patientAge,patientIDNum,patientNameNotes,patientStatus;
 
+    private boolean pStatus;
     private JLabel fNameTitle,famNameTitle,ageT,idT,notesT,statusT;
 
-    public void printP() throws SQLException {
-        patientPrintPanel=new JPanel(new GridLayout(10,10));
-        patientPrintPanel.setBackground(new Color(236, 240, 241));
+    public void printP() throws SQLException, URISyntaxException {
 
-        setupFrame();
+        GridLayout gl=new GridLayout();
+        gl.setRows(2); //this is just to initialise //doesnt matter what value
+
+        patientPrintPanel=new JPanel(gl);
+        patientPrintPanel.setBackground(new Color(236, 240, 241));
+        patientPrintPanel.setBorder(new LineBorder(Color.BLACK,2));
+
+        //setup the frame
+        frame.setFrame();
+        frame.setTitle("All patients");
+        frame.getFrame();
+
         labelNames();
 
-        String dbUrl= "jdbc:postgresql://localhost:5432/project";
-        Connection conn= DriverManager.getConnection(dbUrl);
+        //connect to db
+        connectDatabase conn= new connectDatabase();
+        conn.getConnection();
 
         try {
             Statement s=conn.createStatement();
             String sqlStr = "SELECT * FROM patients WHERE id>=1;";
             ResultSet rset=s.executeQuery(sqlStr);
+
+            //to get the number of patients
+            Statement s2=conn.createStatement();
+            String sqlStr2="SELECT count(id) FROM patients;";
+            ResultSet rset2=s2.executeQuery(sqlStr2);
+
+            //num of rows to print the labels correctly
+            countRowsRequired num=new countRowsRequired();
+            num.NumofRows_plus1(gl, rset2);
+
+            //gets patient info from db
             while(rset.next()){
 
-                patientFirstName=new JLabel(rset.getString("givenname"));
-                patientFamilyName=new JLabel(rset.getString("familyname"));
-                patientAge=new JLabel(rset.getString("age"));
-                patientIDNum=new JLabel(rset.getString("identitynumber"));
-                patientNameNotes=new JLabel(rset.getString("notes"));
+                setLabels(rset);
 
-                //add patient status
+                if(!pStatus){
+                    patientStatus=new JLabel("Discharged");
+                }else
+                    patientStatus=new JLabel("Admitted");
 
-                patientPrintPanel.add(patientFirstName);
-                patientPrintPanel.add(patientFamilyName);
-                patientPrintPanel.add(patientAge);
-                patientPrintPanel.add(patientIDNum);
-                patientPrintPanel.add(patientNameNotes);
-//                patientPrintPanel.add(patientStatus);
+                addPatientToPanel();
 
-                frame.getContentPane().add(patientPrintPanel);
+                mainPanel.add(patientPrintPanel);
 
-                System.out.println(rset.getInt("id")+" "+ rset.getString("givenname")+" "+ rset.getString("familyname"));
+                frame.add(mainPanel);
             }
             rset.close();
             s.close();
             conn.close();
-        }
-        catch (Exception e){
-        }
+        }catch (Exception e){
 
-
+        }
+        JScrollPane scroll=new JScrollPane(patientPrintPanel,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        mainPanel.add(scroll);
     }
 
+    private void addPatientToPanel() {
+        patientPrintPanel.add(patientFirstName);
+        patientPrintPanel.add(patientFamilyName);
+        patientPrintPanel.add(patientAge);
+        patientPrintPanel.add(patientIDNum);
+        patientPrintPanel.add(patientNameNotes);
+        patientPrintPanel.add(patientStatus);
+    }
+    private void setLabels(ResultSet rset) throws SQLException {
+        patientFirstName=new JLabel(rset.getString("givenname"));
+        patientFamilyName=new JLabel(rset.getString("familyname"));
+        patientAge=new JLabel(rset.getString("age"));
+        patientIDNum=new JLabel(rset.getString("identitynumber"));
+        patientNameNotes=new JLabel(rset.getString("notes"));
+        pStatus=rset.getBoolean("admit_status");
+    }
     private void labelNames(){
+
         fNameTitle=new JLabel("First name: ");
         famNameTitle=new JLabel("Family name: ");
         ageT=new JLabel("Age: ");
@@ -70,15 +113,7 @@ public class printPatients {
         patientPrintPanel.add(ageT);
         patientPrintPanel.add(idT);
         patientPrintPanel.add(notesT);
-        //patientPrintPanel.add(statusT);
-    }
-
-    private void setupFrame(){
-        frame = new JFrame("All Patients List");
-        frame.setSize(500, 600);
-        frame.setJMenuBar(new MenuBar());
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(2);
+        patientPrintPanel.add(statusT);
     }
 
 }

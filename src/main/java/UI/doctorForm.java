@@ -1,5 +1,5 @@
 package UI;
-
+import database_conn.connectDatabase;
 import doctors.Doctor;
 import doctors.doctor_database;
 
@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -16,7 +17,8 @@ public class doctorForm {
     private doctor_database dr_db=new doctor_database();
     private Doctor doctor;
 
-    private JFrame frame;
+    //frame class
+    private setupFrame frame =new setupFrame();
 
     //jpanels to add components
     private JPanel mainPanel= new JPanel(new GridLayout(7,2));
@@ -43,13 +45,18 @@ public class doctorForm {
     private String email=new String();
     private String workhrs=new String();
 
-    public doctorForm() throws SQLException {
+    public doctorForm() throws SQLException, URISyntaxException {
 
-        setupFrame();
+        //setting up frame
+        frame.setFrame();
+        frame.setTitle("Add doctor");
+        frame.getFrame();
 
-        String dbUrl= "jdbc:postgresql://localhost:5432/project";
-        Connection conn= DriverManager.getConnection(dbUrl);
-        formField();
+        //setup db connection
+        connectDatabase conn= new connectDatabase();
+        conn.getConnection();
+
+        InitialiseformField();
 
         //initalise the label not to print wout the button pressed
         successLabel.setVisible(false);
@@ -72,7 +79,7 @@ public class doctorForm {
                 //add dr to postgres db
                 try {
                     Statement s=conn.createStatement();
-                    String sqlStr = "INSERT INTO doctors (firstname, lastname,identitynumber, email, workload) values ('"+given_name+"','"+familyname+"','"+ID+"','"+email+"','"+workhrs+"');";
+                    String sqlStr = "INSERT INTO doctors (firstname, lastname,identitynumber, email, workload,availability) values ('"+given_name+"','"+familyname+"','"+ID+"','"+email+"','"+workhrs+"',true);";
                     s.execute (sqlStr);
                 }
                 catch (Exception e){
@@ -87,7 +94,7 @@ public class doctorForm {
         });
 
         //add all labels and text fields to main panel
-        addToPanel();
+        addToMainPanel();
 
         // add buttons to button panel
         buttonPanel.add(p_btn);
@@ -97,18 +104,25 @@ public class doctorForm {
         mainPanel.add(buttonPanel,BorderLayout.CENTER);
 
         mainPanel.revalidate();
+
+        //add to frame
         frame.add(mainPanel);
-
     }
 
-
-    private void setupFrame(){
-        frame = new JFrame("Add Doctor");
-        frame.setSize(500, 600);
-        frame.setJMenuBar(new MenuBar());
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(2);
+    private void addToMainPanel() {
+        mainPanel.add(nameLabel);
+        mainPanel.add(nameField);
+        mainPanel.add(familyLabel);
+        mainPanel.add(familyField);
+        mainPanel.add(emailLabel);
+        mainPanel.add(emailField);
+        mainPanel.add(IDLabel);
+        mainPanel.add(IDField);
+        mainPanel.add(workLabel);
+        mainPanel.add(workField);
+        mainPanel.add(successLabel);
     }
+
     private void clearFields() {
         nameField.setText("");
         emailField.setText("");
@@ -116,25 +130,8 @@ public class doctorForm {
         workField.setText("");
         familyField.setText("");
     }
-    private void addToPanel() {
-        setupLabels(mainPanel, nameLabel, nameField, familyLabel, familyField, emailLabel, emailField, IDLabel, IDField, workLabel, workField, successLabel);
-    }
 
-    static void setupLabels(JPanel mainPanel, JLabel nameLabel, JTextField nameField, JLabel familyLabel, JTextField familyField, JLabel emailLabel, JTextField emailField, JLabel idLabel, JTextField idField, JLabel workLabel, JTextField workField, JLabel successLabel) {
-        mainPanel.add(nameLabel);
-        mainPanel.add(nameField);
-        mainPanel.add(familyLabel);
-        mainPanel.add(familyField);
-        mainPanel.add(emailLabel);
-        mainPanel.add(emailField);
-        mainPanel.add(idLabel);
-        mainPanel.add(idField);
-        mainPanel.add(workLabel);
-        mainPanel.add(workField);
-        mainPanel.add(successLabel);
-    }
-
-    private void formField() {
+    private void InitialiseformField() {
         nameField=new JTextField();
         nameField.setColumns(128);
         familyField=new JTextField();
