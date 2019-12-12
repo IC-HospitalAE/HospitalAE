@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.heroku.api:heroku-api:0.37">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.heroku.api/heroku-api/0.37/d417281f325786feec78b0032258f9e78d6e9828/heroku-api-0.37.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.heroku.api/heroku-api/0.37/9c2609e5e9f445fdac6cba82a49e95ecad245cf1/heroku-api-0.37-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
