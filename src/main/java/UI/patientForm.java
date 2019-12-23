@@ -1,6 +1,8 @@
 package UI;
+import JSON.Patient;
 import bed.assignBed;
 import database_conn.connectDatabase;
+import patients.patientArray;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -82,14 +84,21 @@ public class patientForm{
                 bedEntered=bed_in;
 
                 //get date and time from system
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
                 LocalDateTime now = LocalDateTime.now();
+
+                Patient patient=new Patient(name,familyname,ID,age,notes,dtf.format(now),phonenumber,bedEntered);
+                patientArray pArray=new patientArray();
+                pArray.addPatient(patient);
+                pArray.printPatient(patient);
+
+
 
                 //add patient to postgres db
                 try{
                     if((bed.isBedEmpty(bedEntered) == true)&&(!name.isEmpty())&&(!familyname.isEmpty())&&(!ID.isEmpty())&&(!phonenumber.isEmpty())){
                         Statement s= conn.createStatement();
-                        String sql = "INSERT INTO patients (firstname, lastname, phonenumber, identitynumber, age, notes,admit_status,bednumber,time_date) values ('"+name+"','"+familyname+"','"+phonenumber+"','"+ID+"','"+age+"','"+notes+"',true,'"+bedEntered+"','"+dtf.format(now)+"' );";
+                        String sql = "INSERT INTO patients (firstname, lastname, phonenumber, identitynumber, age, notes,admit_status,bednumber,time_date,doctor_incharge) values ('"+name+"','"+familyname+"','"+phonenumber+"','"+ID+"','"+age+"','"+notes+"',true,'"+bedEntered+"','"+dtf.format(now)+"','');";
                         s.execute(sql);
                         succcessLabel.setText("Successfully added patient!");
                         succcessLabel.setVisible(true);
@@ -107,9 +116,10 @@ public class patientForm{
                 try{
                     String timeDate=dtf.format(now);
                     String sql2="UPDATE beds SET check_in_time='"+timeDate+"' WHERE bed_id='"+bedEntered+"' ";
+                    String sql3="UPDATE beds SET patient_id='"+name+"' where bed_id='"+bedEntered+"'";
                     Statement s2=conn.createStatement();
                     s2.execute(sql2);
-                    conn.close();
+                    s2.execute(sql3);
                 }catch (Exception e){
                     e.printStackTrace();
                 }

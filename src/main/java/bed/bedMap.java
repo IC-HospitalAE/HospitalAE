@@ -44,7 +44,7 @@ public class bedMap {
 
     }
 
-    public JPanel bedSetup(String bed_num) throws SQLException, IOException, URISyntaxException {
+    public JPanel bedSetup(String bed_num) throws SQLException{
 
         JPanel bed_in = new JPanel(new GridLayout(5, 1));
         JLabel patientLabel;
@@ -84,7 +84,7 @@ public class bedMap {
             public void actionPerformed(ActionEvent actionEvent) {
 
                 //get time and date
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
                 LocalDateTime now = LocalDateTime.now();
                 String timeDate=dtf.format(now);
 
@@ -138,6 +138,7 @@ public class bedMap {
 
     private String getPatientName(String bed_id) throws SQLException {
         String patientname = new String();
+        conn.getConnection();
 
         Statement s=conn.createStatement();
         String sql="SELECT firstname from patients where bednumber='"+bed_id+"'  ";
@@ -150,6 +151,7 @@ public class bedMap {
     }
 
     private String getPatientLastName(String bed_id) throws SQLException{
+        conn.getConnection();
         Statement s=conn.createStatement();
         String sql="SELECT lastname from patients where bednumber='"+bed_id+"'  ";
         ResultSet rset= s.executeQuery(sql);
@@ -162,6 +164,13 @@ public class bedMap {
 
     private String getDoctorName(String bed_id) throws IOException, SQLException {
         String doctor = new String();
+
+        conn.getConnection();
+
+        Statement s=conn.createStatement();
+        String sql="SELECT firstname FROM doctors where availability=true";
+        ResultSet rser=s.executeQuery(sql);
+
 
 
 

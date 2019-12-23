@@ -1,6 +1,6 @@
 package UI;
 import database_conn.connectDatabase;
-import doctors.Doctor;
+import JSON.Doctor;
 import doctors.doctor_database;
 
 import javax.swing.*;
@@ -72,10 +72,12 @@ public class doctorForm {
                 email=emailField.getText();
                 workhrs=workField.getText();
 
+                //add to Doctor class then send as JSON to cloud
                 doctor=new Doctor(given_name,familyname,ID,workhrs);
 
-                //add dr to array
+                //add to arraylist
                 dr_db.addDoctor(doctor);
+                dr_db.PrintDoctor(doctor);
 
                 //add dr to postgres db
                 try {
@@ -83,7 +85,6 @@ public class doctorForm {
                     String sqlStr = "INSERT INTO doctors (firstname, lastname,identitynumber, email, workload) values ('"+given_name+"','"+familyname+"','"+ID+"','"+email+"','"+workhrs+"');";
                     s.execute (sqlStr);
                     conn.close();
-
                 }
                 catch (Exception e){
                 }

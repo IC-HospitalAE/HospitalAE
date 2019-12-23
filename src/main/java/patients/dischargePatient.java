@@ -22,6 +22,9 @@ public class dischargePatient {
         String sqlStr5="UPDATE beds SET availability=true WHERE bed_id='"+bednum+"' ";
         statement.execute(sqlStr5);
 
+        String sqlStr2="UPDATE beds SET check_in_time='',patient_id='' WHERE bed_id='"+bednum+"'   ";
+        statement.execute(sqlStr2);
+
         conn1.close();
 
     }

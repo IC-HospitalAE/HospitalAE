@@ -68,16 +68,16 @@ public class gettingAvailableDrs {
                         splitTimetable[i] = time3;
                         break;
                     case "2a":
-                        String time4 = "Tues 00";
+                        String time4 = "Tue 00";
                         splitTimetable[i] = time4;
                         break;
                     case "2b":
-                        String time5 = "Tues 08";
+                        String time5 = "Tue 08";
                         splitTimetable[i] = time5;
 
                         break;
                     case "2c":
-                        String time6 = "Tues 16";
+                        String time6 = "Tue 16";
                         splitTimetable[i] = time6;
 
                         break;
@@ -162,7 +162,6 @@ public class gettingAvailableDrs {
 
             //send dr name
             whichDrisAvailableNow(entry.getKey());
-            System.out.println();
         }
     }
 
@@ -210,16 +209,12 @@ public class gettingAvailableDrs {
                 String[]splitName=name.split(" ");
 
                 if( (day.equals(dayToday)) && timenow==timeDr ){
-                    System.out.println("Dr "+name+" available now");
                     availableDr.add(name);
                 }else{
-
                 }
             }
-
         }else{
             notAvail.add(name);
-            System.out.println("Dr "+name+" not available today");
         }
     }
 

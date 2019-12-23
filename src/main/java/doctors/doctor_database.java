@@ -1,5 +1,7 @@
 package doctors;
 
+import JSON.Doctor;
+
 import java.util.ArrayList;
 
 public class doctor_database {
@@ -17,7 +19,6 @@ public class doctor_database {
             System.out.println("Last: "+doc.getLastname());
             System.out.println("ID: " +doc.getId());
             System.out.println("Workload: " +doc.getWorkload());
-
         }
     }
 }
