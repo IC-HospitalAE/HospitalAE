@@ -34,6 +34,7 @@ public class gettingAvailableDrs {
 
     public gettingAvailableDrs() throws IOException, SQLException {
         decodeTime();
+
     }
 
     private void decodeTime() throws SQLException {
@@ -156,10 +157,10 @@ public class gettingAvailableDrs {
             doctors.replace(drname,tt,timetable);
         }
 
+
         for(Map.Entry<String, String> entry : doctors.entrySet()){
             //send each dr time timetable
             //get if the dr is available
-
             //send dr name
             whichDrisAvailableNow(entry.getKey());
         }
@@ -229,6 +230,15 @@ public class gettingAvailableDrs {
             return 2;
         }else
             return 3;
+    }
+
+    private void setWorkload(String name_in){
+        String workload=doctors.get(name_in);
+        workload=workload.replaceAll(",","");
+        workload=workload.replaceAll("\\s","");
+
+        int workLoad=workload.length()/5;
+        System.out.println(workLoad);
     }
 
     public ArrayList<String> getAvailableDr(){

@@ -47,8 +47,8 @@ public class mainPage {
         viewDr.addActionListener(actionEvent -> {
 
             try {
-                setDoctorToPatient setDtP=new setDoctorToPatient();
                 doctorView dr = new doctorView();
+                setDoctorToPatient pp=new setDoctorToPatient();
             } catch (SQLException | IOException | URISyntaxException e) {
                 e.printStackTrace();
             }
@@ -82,6 +82,7 @@ public class mainPage {
         mapview=bedmap.getBedsPanel();
 
         mainPanel.add(mapview);
+
     }
 
 

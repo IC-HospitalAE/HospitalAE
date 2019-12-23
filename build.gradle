@@ -21,6 +21,8 @@ dependencies {
     compile group: 'org.postgresql', name: 'postgresql', version: '42.2.8'
     compile group: 'com.heroku.sdk', name: 'heroku-jdbc', version: '0.1.1'
 
+    compile files('lib/mail.jar')
+    compile files('lib/activation.jar')
     compile group: 'com.heroku.api', name: 'heroku-api', version: '0.37'
 }
 task stage(dependsOn: ['build', 'clean'])

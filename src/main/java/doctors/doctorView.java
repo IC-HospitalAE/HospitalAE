@@ -49,7 +49,7 @@ public class doctorView {
 //        }
 
         Statement s = conn.createStatement();
-        String sql = "SELECT firstname,lastname,identitynumber,email,workload,availability from doctors WHERE id>1 ORDER BY availability; ";
+        String sql = "SELECT firstname,lastname,identitynumber,email,workload,availability from doctors WHERE availability=true ";
         ResultSet rset = s.executeQuery(sql);
 
         int numberRows = new countRowsRequired().getrowCount();

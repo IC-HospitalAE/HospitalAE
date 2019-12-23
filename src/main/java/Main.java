@@ -1,16 +1,14 @@
 import UI.MenuBar;
 import UI.mainPage;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.*;
 
 public class Main {
     public static void main(String args[]) throws SQLException, URISyntaxException, IOException {
-
         JFrame mainFrame=new JFrame("Hospital");
         JPanel p;
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
