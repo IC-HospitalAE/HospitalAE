@@ -87,14 +87,17 @@ public class patientForm{
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
                 LocalDateTime now = LocalDateTime.now();
 
+                //this sends the entered info to the patient class
                 Patient patient=new Patient(name,familyname,ID,age,notes,dtf.format(now),phonenumber,bedEntered);
                 patientArray pArray=new patientArray();
-                pArray.addPatient(patient);
-                pArray.printPatient(patient);
+                pArray.addPatient(patient); //add to array
+                pArray.printPatient(patient); //print it to terminal to debug
+
+                //here goes the JSON conversion and sending to servlet
+                /* CODE HERE */
 
 
-
-                //add patient to postgres db
+                //add patient to LOCAL postgres db
                 try{
                     if((bed.isBedEmpty(bedEntered) == true)&&(!name.isEmpty())&&(!familyname.isEmpty())&&(!ID.isEmpty())&&(!phonenumber.isEmpty())){
                         Statement s= conn.createStatement();
