@@ -1,16 +1,13 @@
 package UI;
 import database_conn.connectDatabase;
 import JSON.Doctor;
-import doctors.doctor_database;
+import JSON.doctor_database;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URISyntaxException;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 

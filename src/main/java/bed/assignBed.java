@@ -23,32 +23,34 @@ public class assignBed {
     private ArrayList<Integer> bednumbers=new ArrayList<>();
     JLabel bed_id_Labels;
 
-    private connectDatabase conn=new connectDatabase();
-
     public assignBed() throws SQLException, URISyntaxException {
 
     }
 
     //thesea are all accessed in the bedMap class
     public void setBedUnavailable(String bed_id_in) throws SQLException {
+        connectDatabase conn = new connectDatabase();
+
         conn.getConnection();
         Statement s=conn.createStatement();
 
         String sql="UPDATE beds SET availability=false where bed_id='"+bed_id_in+"' ";
         s.execute(sql);
-
+        conn.close();
     }
 
     public void setBedAvailable(String bed_id_in) throws SQLException{
+        connectDatabase conn = new connectDatabase();
         conn.getConnection();
         Statement s=conn.createStatement();
 
         String sql="UPDATE beds SET availability=true where bed_id='"+bed_id_in+"'";
         s.execute(sql);
+        conn.close();
     }
 
     public JPanel getAvailableBeds() throws SQLException {
-
+        connectDatabase conn = new connectDatabase();
         conn.getConnection();
         Statement s=conn.createStatement();
 
@@ -69,11 +71,13 @@ public class assignBed {
         }
         availableBeds.setBackground(new Color(253,253,253));
 
+        conn.close();
         return availableBeds;
     }
 
     public boolean isBedEmpty(String bed_in) throws SQLException {
         boolean emptyBed=true;
+        connectDatabase conn = new connectDatabase();
         conn.getConnection();
         Statement s=conn.createStatement();
         String sql="SELECT availability from beds where bed_id='"+bed_in+"' ";
@@ -86,11 +90,13 @@ public class assignBed {
                 emptyBed=true;
             }
         }
+        conn.close();
         return emptyBed;
     }
 
     //this will get the time shift at which the bed is set patients to
     public int getBedOccupiedTime(String bed_num) throws SQLException {
+        connectDatabase conn = new connectDatabase();
         conn.getConnection();
 
         String sql="SELECT check_in_time FROM beds WHERE bed_id='"+bed_num+"'";
@@ -102,7 +108,6 @@ public class assignBed {
             dateAndTime=rset.getString("check_in_time");
         }
 
-
         String[] total=dateAndTime.split("\\s+");
         String date=total[0];
         String time=total[1];
@@ -111,6 +116,7 @@ public class assignBed {
         total=time.split(":");
         int shift= Integer.parseInt(total[0]);
 
+        conn.close();
 
         if((shift>=0) && (shift<8)){
             return 1; //12am to 8am
@@ -119,10 +125,5 @@ public class assignBed {
         }else {
             return 3; //4pm to 12am
         }
-
     }
-
-
-
-
 }

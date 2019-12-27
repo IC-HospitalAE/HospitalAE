@@ -6,9 +6,10 @@ import java.sql.Statement;
 
 public class dischargePatient {
 
-    public void discharge(String name,String bednum,String dischageDate) throws SQLException {
+    public void discharge(String name,String bednum,String dischageDate,String drname) throws SQLException {
 
-        System.out.println(name);
+        System.out.println(drname);
+        String[] drFirstname=drname.split(" ");
 
         //connect to database
         connectDatabase conn1=new connectDatabase();
@@ -22,8 +23,12 @@ public class dischargePatient {
         String sqlStr5="UPDATE beds SET availability=true WHERE bed_id='"+bednum+"' ";
         statement.execute(sqlStr5);
 
-        String sqlStr2="UPDATE beds SET check_in_time='',patient_id='' WHERE bed_id='"+bednum+"'   ";
+        String sqlStr2="UPDATE beds SET check_in_time='',patient_id='', doctor_id='' WHERE bed_id='"+bednum+"'   ";
         statement.execute(sqlStr2);
+
+        String sqlStr7="UPDATE doctors SET num_patients=num_patients-1 WHERE firstname='"+drFirstname[1]+"'   ";
+        statement.execute(sqlStr7);
+
 
         conn1.close();
 

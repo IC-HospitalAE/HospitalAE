@@ -15,10 +15,10 @@ import javax.activation.*;
 // 3 doctor should have less than ten shifts
 // 4 doctor should not work the previous shift or the next shift
 
-public class sendEmail {
+public class sendEmailFunction {
 
         //Start to find data in sql
-    public sendEmail() throws SQLException {
+    public sendEmailFunction() throws SQLException {
         connectDatabase conn=new connectDatabase();
         try {
 

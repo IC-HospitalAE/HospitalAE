@@ -2,26 +2,17 @@ package doctors;
 
 import database_conn.clientDoctor;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import bed.assignBed;
-import database_conn.connectDatabase;
-
 public class gettingAvailableDrs {
     private clientDoctor dr =new clientDoctor();
-    connectDatabase conn = new connectDatabase();
-
-    private ArrayList<String> timetable=dr.getDoctorTimetable();
 
     //gets the dr and their timetable
     private HashMap<String,String>doctors=dr.getDoctorAndTimetable();
 
-    private String timeDate;
     private String dayToday;
     private String timeNow;
 
@@ -29,8 +20,11 @@ public class gettingAvailableDrs {
     private String testTime="09";
     private String TESTDAY="Thurs";
 
-    private ArrayList<String>availableDr=new ArrayList<>();
-    private ArrayList<String>notAvail=new ArrayList<>();
+    private ArrayList<String> allDoctors =new ArrayList<>(); //all doctors on the db
+    private ArrayList<String>availableDr=new ArrayList<>(); //drs available now
+    private ArrayList<String>availableNextShift=new ArrayList<>(); //drs available on next shift;
+    private ArrayList<String>notAvailableToday=new ArrayList<>(); //drs not available today
+    private ArrayList<Integer>drWorkloads=new ArrayList<>();//get the drs workload
 
     public gettingAvailableDrs() throws IOException, SQLException {
         decodeTime();
@@ -43,6 +37,8 @@ public class gettingAvailableDrs {
         for(Map.Entry<String, String> entry : doctors.entrySet()) {
             String tt = entry.getValue();
             String drname = entry.getKey();
+
+            allDoctors.add(drname);
 
             StringBuilder bld = new StringBuilder();
 
@@ -176,7 +172,7 @@ public class gettingAvailableDrs {
         dayToday=new SimpleDateFormat("EE", Locale.ENGLISH).format(date.getTime());
         StringBuilder bld= new StringBuilder();
         bld.append(dayToday+" "+timeNow);
-        timeDate= bld.toString();
+        String timeDate = bld.toString();
     }
 
     private void whichDrisAvailableNow(String name){
@@ -209,13 +205,19 @@ public class gettingAvailableDrs {
 
                 String[]splitName=name.split(" ");
 
-                if( (day.equals(dayToday)) && timenow==timeDr ){
-                    availableDr.add(name);
+                if( (day.equals(dayToday)) && timenow==timeDr){
+                    availableDr.add(name); //dr avaiable today and on shift now
+                    setWorkload(name);
+                }else if( day.equals(dayToday) && timeDr==timenow+1 ){
+                    availableNextShift.add(name); //next shift doctor
                 }else{
+
                 }
             }
         }else{
-            notAvail.add(name);
+            //doctors not available today
+            notAvailableToday.add(name);
+            //setWorkload(name);
         }
     }
 
@@ -238,17 +240,21 @@ public class gettingAvailableDrs {
         workload=workload.replaceAll("\\s","");
 
         int workLoad=workload.length()/5;
-        System.out.println(workLoad);
+        drWorkloads.add(workLoad);
     }
 
+
+    //this are getters for other classes to access
     public ArrayList<String> getAvailableDr(){
         return availableDr;
     }
 
-    public ArrayList<String> getNotAvail(){
-        return notAvail;
+    public ArrayList<String> getNotAvailableToday(){
+        return notAvailableToday;
     }
 
-
+    public ArrayList<String> getAvailableNextShift(){
+        return availableNextShift;
+    }
 
 }

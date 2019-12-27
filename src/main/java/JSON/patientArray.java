@@ -1,6 +1,4 @@
-package patients;
-
-import JSON.Patient;
+package JSON;
 
 import java.util.ArrayList;
 

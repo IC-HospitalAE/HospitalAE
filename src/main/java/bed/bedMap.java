@@ -22,8 +22,6 @@ public class bedMap {
     private JPanel mapView=new JPanel(new GridLayout(2,5));
     private JPanel bed1=new JPanel(),bed2=new JPanel(),bed3,bed4,bed5,bed6,bed7,bed8,bed9,bed10;
 
-    private connectDatabase conn = new connectDatabase();
-
     private assignBed beds=new assignBed();
     private dischargePatient dischargepatient = new dischargePatient();
 
@@ -44,7 +42,7 @@ public class bedMap {
 
     }
 
-    public JPanel bedSetup(String bed_num) throws SQLException{
+    public JPanel bedSetup(String bed_num) throws SQLException, IOException {
 
         JPanel bed_in = new JPanel(new GridLayout(5, 1));
         JLabel patientLabel;
@@ -55,10 +53,11 @@ public class bedMap {
 
         //set up the labels
         JLabel bedLabel=new JLabel("Bed #"+bed_num );
-        patientLabel = setPatientName(bed_num);
 
+
+        patientLabel = setPatientName(bed_num);
         //gets the dr names for each bed
-        doctorLabel=new JLabel("Dr name");
+        doctorLabel=setDoctorName(bed_num);
 
 
         //centering the labels on the panel
@@ -84,14 +83,15 @@ public class bedMap {
             public void actionPerformed(ActionEvent actionEvent) {
 
                 //get time and date
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
                 LocalDateTime now = LocalDateTime.now();
                 String timeDate=dtf.format(now);
 
                 try {
                     String patientName=getPatientName(bed_num);
-                    dischargepatient.discharge(patientName,bed_num,timeDate);
-                } catch (SQLException e) {
+                    String drname=getDoctorName(bed_num);
+                    dischargepatient.discharge(patientName,bed_num,timeDate,drname);
+                } catch (SQLException | IOException e) {
                     e.printStackTrace();
                 }
                 bed_in.revalidate();
@@ -105,7 +105,7 @@ public class bedMap {
                 try {
                     patientForm addPatient=new patientForm(bed_num);
 
-                } catch (SQLException | URISyntaxException e) {
+                } catch (SQLException | URISyntaxException | IOException e) {
                     e.printStackTrace();
                 }
             }
@@ -135,8 +135,19 @@ public class bedMap {
         }
         return patientLabel;
     }
+    private JLabel setDoctorName(String bed_id) throws SQLException, IOException {
+        JLabel doctorLabel=new JLabel();
+
+        if (beds.isBedEmpty(bed_id) == true) {
+            doctorLabel.setText("");
+        }else {
+            doctorLabel.setText(getDoctorName(bed_id));
+        }
+        return doctorLabel;
+    }
 
     private String getPatientName(String bed_id) throws SQLException {
+        connectDatabase conn = new connectDatabase();
         String patientname = new String();
         conn.getConnection();
 
@@ -147,10 +158,14 @@ public class bedMap {
         while(rset.next()){
             patientname=rset.getString("firstname");
         }
+        conn.close();
         return patientname;
+
     }
 
     private String getPatientLastName(String bed_id) throws SQLException{
+        connectDatabase conn = new connectDatabase();
+
         conn.getConnection();
         Statement s=conn.createStatement();
         String sql="SELECT lastname from patients where bednumber='"+bed_id+"'  ";
@@ -159,21 +174,25 @@ public class bedMap {
         while(rset.next()){
             lastname=rset.getString("lastname");
         }
+
+        conn.close();
         return lastname;
     }
 
     private String getDoctorName(String bed_id) throws IOException, SQLException {
         String doctor = new String();
 
+        connectDatabase conn = new connectDatabase();
         conn.getConnection();
 
         Statement s=conn.createStatement();
-        String sql="SELECT firstname FROM doctors where availability=true";
-        ResultSet rser=s.executeQuery(sql);
+        String sql="SELECT doctor_id FROM beds where bed_id='"+bed_id+"'";
+        ResultSet rset=s.executeQuery(sql);
 
-
-
-
+        while (rset.next()){
+            doctor="Dr "+rset.getString("doctor_id");
+        }
+        conn.close();
         return doctor;
     }
 

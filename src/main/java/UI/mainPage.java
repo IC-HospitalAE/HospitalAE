@@ -1,7 +1,7 @@
 package UI;
 import bed.bedMap;
 import doctors.doctorView;
-import doctors.setDoctorToPatient;
+import doctors.sendEmailToDrs;
 import patients.patientsView;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -31,7 +31,7 @@ public class mainPage {
     public mainPage() throws SQLException, URISyntaxException, IOException {
 
         viewP=new JButton("View all patients");
-        viewDr= new JButton("View all doctors");
+        viewDr= new JButton("View available doctors");
 
         //view patients
         viewP.addActionListener(actionEvent -> {
@@ -47,8 +47,8 @@ public class mainPage {
         viewDr.addActionListener(actionEvent -> {
 
             try {
+                sendEmailToDrs pp=new sendEmailToDrs();
                 doctorView dr = new doctorView();
-                setDoctorToPatient pp=new setDoctorToPatient();
             } catch (SQLException | IOException | URISyntaxException e) {
                 e.printStackTrace();
             }

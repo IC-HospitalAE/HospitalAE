@@ -22,19 +22,6 @@ public class MenuBar extends JMenuBar{
 
 
         //pateints menu items
-        patientItem=new JMenuItem("Add Patient");
-
-        patientItem.addActionListener(actionEvent -> {
-//            try {
-//                patientForm form=new patientForm();
-//
-//            } catch (SQLException | URISyntaxException e) {
-//                e.printStackTrace();
-//            }
-        });
-        patients.add(patientItem);
-        add(patients);
-
 
         JMenuItem patientItem2=new JMenuItem("Search patient list");
         patientItem2.addActionListener(new ActionListener() {
@@ -73,7 +60,7 @@ public class MenuBar extends JMenuBar{
 
 
         //view items
-        viewItem=new JMenuItem("Current Available Doctors");
+        viewItem=new JMenuItem("Doctors on duty");
         add(view);
         view.add(viewItem);
 

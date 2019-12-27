@@ -12,7 +12,7 @@ import java.sql.Statement;
 public class patientsView {
 
     private JPanel mainPanel=new JPanel();
-    private JPanel patientPanel =new JPanel(new GridLayout(5,2));
+    private JPanel patientPanel =new JPanel(new GridLayout(10,3));
     private JPanel cards;
 
     private JLabel firstname,lastname,id,status,notes,phone,admitTime,admitDate,dishargeTime,dischargeDate;
@@ -90,8 +90,8 @@ public class patientsView {
             frame.add(mainPanel);
         }
         JScrollPane scroll=new JScrollPane(patientPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scroll.getHorizontalScrollBar().setUnitIncrement(20);
-        scroll.getVerticalScrollBar().setUnitIncrement(20);
+        scroll.getHorizontalScrollBar().setUnitIncrement(25);
+        scroll.getVerticalScrollBar().setUnitIncrement(25);
         mainPanel.add(scroll);
         conn.close();
     }
@@ -141,7 +141,7 @@ public class patientsView {
         dishargeTime.setFont(new Font("Raleway Light", Font.PLAIN, 15));
         dischargeDate.setFont(new Font("Raleway Light", Font.PLAIN, 15));
 
-        card_in.setPreferredSize(new Dimension(200,250));
+        card_in.setPreferredSize(new Dimension(450,300));
 
         CompoundBorder cardBorder=new CompoundBorder(new LineBorder(border,2),new EmptyBorder(10,20,10,10));
         card_in.setBorder(cardBorder);
@@ -159,9 +159,7 @@ public class patientsView {
         CompoundBorder border=new CompoundBorder(new LineBorder(Color.BLACK,1),new EmptyBorder(20,10,10,10));
         patientPanel.setBorder(border);
         patientPanel.setBackground(background);
-
         mainPanel.setBackground(background);
-        mainPanel.setBorder(new LineBorder(Color.RED,1));
     }
 
 

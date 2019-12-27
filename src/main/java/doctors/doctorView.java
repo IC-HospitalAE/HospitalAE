@@ -22,7 +22,7 @@ public class doctorView {
     private JPanel btnPanel=new JPanel();
 
 
-    private JLabel firstname, lastname, id, status, email, workload;
+    private JLabel firstname, lastname, id, status, email, workload,shift;
 
     private setupFrame frame = new setupFrame();
 
@@ -40,16 +40,8 @@ public class doctorView {
 
         assignBed aa=new assignBed();
 
-//        if(aa.getBedOccupiedTime("2")==1){
-//            System.out.println("shift 1");
-//        }else if(aa.getBedOccupiedTime("2")==2){
-//            System.out.println("shift 2");
-//        }else{
-//            System.out.println("shift 3 ");
-//        }
-
         Statement s = conn.createStatement();
-        String sql = "SELECT firstname,lastname,identitynumber,email,workload,availability from doctors WHERE availability=true ";
+        String sql = "SELECT firstname,lastname,identitynumber,email,workload,availability,shift from doctors WHERE id>0 ORDER BY availability;" ;
         ResultSet rset = s.executeQuery(sql);
 
         int numberRows = new countRowsRequired().getrowCount();
@@ -62,6 +54,7 @@ public class doctorView {
             id = new JLabel("Identity number: " + rset.getString("identitynumber"));
             email = new JLabel("Email: " + (rset.getString("email")));
             workload = new JLabel("Workload: " + rset.getString("workload")+" hours");
+            shift= new JLabel("Next shift: " +rset.getString("shift"));
 
             if (!rset.getBoolean("availability")) {
                 boolean admitted;
@@ -70,7 +63,7 @@ public class doctorView {
                 status = new JLabel("Status: On duty");
             }
 
-            cards = new JPanel(new GridLayout(7, 1));
+            cards = new JPanel(new GridLayout(8, 1));
             mainPanel.setLayout(new GridLayout(1, 1));
 
             cards.add(firstname);
@@ -79,6 +72,7 @@ public class doctorView {
             cards.add(email);
             cards.add(workload);
             cards.add(status);
+            cards.add(shift);
 
             pageStyle();
             cardStyle(cards, rset.getBoolean("availability"));
@@ -110,6 +104,7 @@ public class doctorView {
         email.setHorizontalAlignment(JLabel.LEFT);
         workload.setHorizontalAlignment(JLabel.LEFT);
         status.setHorizontalAlignment(JLabel.LEFT);
+        status.setHorizontalAlignment(JLabel.LEFT);
 
         firstname.setFont(new Font("Raleway Light", Font.PLAIN, 15));
         lastname.setFont(new Font("Raleway Light", Font.PLAIN, 15));
@@ -117,6 +112,7 @@ public class doctorView {
         email.setFont(new Font("Raleway Light", Font.PLAIN, 15));
         workload.setFont(new Font("Raleway Light", Font.PLAIN, 15));
         status.setFont(new Font("Raleway Light", Font.PLAIN, 15));
+        shift.setFont(new Font("Raleway Light", Font.PLAIN, 15));
 
         card_in.setPreferredSize(new Dimension(100, 250));
 

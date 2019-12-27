@@ -1,4 +1,4 @@
-package doctors;
+package JSON;
 
 import JSON.Doctor;
 

@@ -7,24 +7,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public class setDoctorToPatient {
+public class sendEmailToDrs {
     gettingAvailableDrs getDr= new gettingAvailableDrs();
-   private ArrayList<String> doctorsAvailable =getDr.getAvailableDr();
-   private ArrayList<String> drNot=getDr.getNotAvail();
-   private ArrayList<String> patientsList=new ArrayList<>();
 
-   //store the doctor and patient as pairs
-   private HashMap<String,String>doctorWithPatient=new HashMap<>();
+   private ArrayList<String> doctorsAvailable =getDr.getAvailableDr();
+   private ArrayList<String> drNot=getDr.getNotAvailableToday();
+   private ArrayList<String> drsOnNextShift=getDr.getAvailableNextShift();
+
+   private ArrayList<String> patientsList=new ArrayList<>();
 
    private connectDatabase conn;
 
-   private sendEmail sendemail;
+   private sendEmailFunction sendemail;
 
-   public setDoctorToPatient() throws SQLException, IOException {
+   public sendEmailToDrs() throws SQLException, IOException {
        setDrAvailability();
-       setDrToP();
+       sendEmail();
    }
 
     public void setDrAvailability() throws SQLException {
@@ -45,11 +44,19 @@ public class setDoctorToPatient {
             String sql = "UPDATE doctors SET availability=false WHERE firstname='" + split[0] + "'";
             s.execute(sql);
         }
+
+        //set the drs available on next shift
+        for(String name: drsOnNextShift){
+            String[] split = name.split(" ");
+            String sql="UPDATE doctors SET shift='Not Today' WHERE id>0 "; //clear the field
+            String sql1 = "UPDATE doctors SET shift='Right after this shift' WHERE firstname='" + split[0] + "'"; //add the shift
+            s.execute(sql);
+            s.execute(sql1);
+        }
         conn.close();
     }
 
-
-    public void setDrToP() throws SQLException {
+    public void sendEmail() throws SQLException {
 
         conn=new connectDatabase();
         conn.getConnection();
@@ -67,25 +74,12 @@ public class setDoctorToPatient {
         int numOfDr= doctorsAvailable.size(); //num of drs
         int minNumOfDr=numOfPatients/4; //since each dr can look up to 4 patients
 
-        //if there are more than the minimum num of drs
-        if(minNumOfDr<numOfDr){
-
-            conn.getConnection();
-            Statement s1=conn.createStatement();
-
-            for(String name: doctorsAvailable) {
-                String sql1="SELECT num_patients FROM doctors where availability=true";
-                ResultSet rset1=s1.executeQuery(sql1);
-
-                while (rset.next()){
-                    int n=rset.getInt("num_patients");
-                }
-            }
+        //if there are less dr available than the number of doctors needed
+        //send email
+        if(numOfDr<minNumOfDr){
+            sendemail=new sendEmailFunction();
         }else{
-            System.out.println("send email");
-            sendemail=new sendEmail();
+
         }
     }
-
-
 }

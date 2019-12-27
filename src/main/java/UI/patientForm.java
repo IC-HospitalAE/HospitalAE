@@ -2,7 +2,7 @@ package UI;
 import JSON.Patient;
 import bed.assignBed;
 import database_conn.connectDatabase;
-import patients.patientArray;
+import JSON.patientArray;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -10,11 +10,15 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.net.URISyntaxException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class patientForm{
 
@@ -55,7 +59,11 @@ public class patientForm{
     private String familyname;
     private String bedEntered;
 
-    public patientForm(String bed_in) throws SQLException, URISyntaxException {
+//    ArrayList<String> doctorsAvailable= new gettingAvailableDrs().getAvailableDr();
+    ArrayList<String>doctorAvailable=new ArrayList<>();
+
+
+    public patientForm(String bed_in) throws SQLException, URISyntaxException, IOException {
 
         //setting frame
         frame.setFrame();
@@ -91,7 +99,7 @@ public class patientForm{
                 Patient patient=new Patient(name,familyname,ID,age,notes,dtf.format(now),phonenumber,bedEntered);
                 patientArray pArray=new patientArray();
                 pArray.addPatient(patient); //add to array
-                pArray.printPatient(patient); //print it to terminal to debug
+                //pArray.printPatient(patient); //print it to terminal to debug
 
                 //here goes the JSON conversion and sending to servlet
                 /* CODE HERE */
@@ -118,16 +126,26 @@ public class patientForm{
 
                 try{
                     String timeDate=dtf.format(now);
+                    String drassigned=doctorAvailable.get(rand());
+
+                    String[] firstnameDr=drassigned.split(" ");
+                    System.out.println(firstnameDr[0]);
+
                     String sql2="UPDATE beds SET check_in_time='"+timeDate+"' WHERE bed_id='"+bedEntered+"' ";
                     String sql3="UPDATE beds SET patient_id='"+name+"' where bed_id='"+bedEntered+"'";
+                    String sql4="UPDATE beds SET doctor_id='"+drassigned+"' WHERE bed_id='"+bedEntered+"'    ;";
+                    String sql5="UPDATE doctors set num_patients=num_patients+1 WHERE firstname = '"+firstnameDr[0]+"';";
+
                     Statement s2=conn.createStatement();
                     s2.execute(sql2);
                     s2.execute(sql3);
+                    s2.execute(sql4);
+                    s2.execute(sql5);
+
                 }catch (Exception e){
                     e.printStackTrace();
                 }
             }
-
         });
 
         succcessLabel.setVisible(false);
@@ -154,6 +172,28 @@ public class patientForm{
         mainPanel.revalidate();
 
         frame.add(mainPanel);
+    }
+
+    private int rand() throws SQLException {
+
+        int min=0; //lowest index
+
+        connectDatabase connect=new connectDatabase();
+        Statement st=connect.createStatement();
+
+        String sql="SELECT firstname from doctors where num_patients<4 AND availability=true;";
+        ResultSet rset=st.executeQuery(sql);
+
+        while(rset.next()){
+            String names=rset.getString("firstname");
+            doctorAvailable.add(names);
+        }
+
+        int max=doctorAvailable.size();
+        int rand = ThreadLocalRandom.current().nextInt(min, max);
+
+        connect.close();
+        return rand;
     }
     private void clearFields() {
         nameField.setText("");
