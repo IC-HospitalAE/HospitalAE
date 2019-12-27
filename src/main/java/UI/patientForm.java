@@ -1,4 +1,5 @@
 package UI;
+import JSON.ItemManagementService;
 import JSON.Patient;
 import bed.assignBed;
 import database_conn.connectDatabase;
@@ -15,9 +16,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
+import java.util.ArrayList;
+/* The PatientForm is a class that is used to input user information.
+The information input by the user is then stored in an ArrayList called PatientList
+        */
 public class patientForm{
 
+
+    //ArrayList<Patient> pArray = new ArrayList<>();
     //class initialisation
     private setupFrame frame =new setupFrame();
     private assignBed bed= new assignBed();
@@ -92,6 +98,11 @@ public class patientForm{
                 patientArray pArray=new patientArray();
                 pArray.addPatient(patient); //add to array
                 pArray.printPatient(patient); //print it to terminal to debug
+
+
+               /* public static ArrayList<Patient> getPatientList(){
+                    return pArray;
+                }*/
 
                 //here goes the JSON conversion and sending to servlet
                 /* CODE HERE */
