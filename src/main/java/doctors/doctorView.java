@@ -3,10 +3,12 @@ package doctors;
 import UI.countRowsRequired;
 import UI.setupFrame;
 import bed.assignBed;
-import database_conn.clientDoctor;
 import database_conn.connectDatabase;
+
 import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -46,7 +48,7 @@ public class doctorView {
 
         int numberRows = new countRowsRequired().getrowCount();
         GridLayout gridLayout = new GridLayout();
-        gridLayout.setRows(numberRows);
+        gridLayout.setRows(10);
 
         while (rset.next()) {
             firstname = new JLabel("First name: "+ "Dr " + rset.getString("firstname"));

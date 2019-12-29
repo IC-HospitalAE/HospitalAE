@@ -1,8 +1,9 @@
 package UI;
+
 import JSON.Patient;
+import JSON.patientArray;
 import bed.assignBed;
 import database_conn.connectDatabase;
-import JSON.patientArray;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -102,8 +103,8 @@ public class patientForm{
                 //pArray.printPatient(patient); //print it to terminal to debug
 
                 //here goes the JSON conversion and sending to servlet
-                /* CODE HERE */
-
+//                sendingJSON json= new sendingJSON();
+//                json.PostRequest(patient);
 
                 //add patient to LOCAL postgres db
                 try{
@@ -190,7 +191,10 @@ public class patientForm{
         }
 
         int max=doctorAvailable.size();
+
+        System.out.println("max "+max);
         int rand = ThreadLocalRandom.current().nextInt(min, max);
+        System.out.println("Rand "+rand);
 
         connect.close();
         return rand;

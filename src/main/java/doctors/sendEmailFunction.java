@@ -1,12 +1,14 @@
 package doctors;
+
 import database_conn.connectDatabase;
 
-import java.sql.*;
-import java.util.*;
 import javax.mail.*;
-import javax.mail.internet.*;
-import javax.activation.*;
-
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Properties;
 
 // The following conditions must be satisfied for this method to be executed
 

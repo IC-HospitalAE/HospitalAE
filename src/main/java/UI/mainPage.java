@@ -98,11 +98,20 @@ public class mainPage {
         addPatientsPanel.setBackground(new Color(44, 44, 88));
         addPatientsPanel.setBorder(new LineBorder(new Color(163,22,33),2));
 
-        //to refresh the page, itll refresh when mouse is in panel
+        //to refresh the page, itll refresh when mouse is clicked
         mainPanel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
+                mainPanel.remove(mapview);
 
+                try {
+                    mapview=new bedMap().getBedsPanel();
+                    mainPanel.add(mapview);
+                } catch (SQLException | URISyntaxException | IOException e) {
+                    e.printStackTrace();
+                }
+
+                mainPanel.revalidate();
             }
 
             @Override
@@ -117,16 +126,7 @@ public class mainPage {
 
             @Override
             public void mouseEntered(MouseEvent mouseEvent) {
-                mainPanel.remove(mapview);
-                try {
-                    mapview=new bedMap().getBedsPanel();
-                    mainPanel.add(mapview);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                } catch (URISyntaxException | IOException e) {
-                    e.printStackTrace();
-                }
-                mainPanel.revalidate();
+
             }
 
             @Override
