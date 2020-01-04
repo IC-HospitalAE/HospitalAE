@@ -10,8 +10,6 @@ public class initialiseDB {
     private Connection conn;
     String url="jdbc:postgresql://localhost/";
     String dbUrl="jdbc:postgresql://localhost/hospitalae";
-    String password="pass";
-    String username="user";
 
     public initialiseDB() throws SQLException {
         try {
@@ -26,7 +24,7 @@ public class initialiseDB {
         //create database
         try {
             Statement s=conn.createStatement();
-            String createDB = "create DATABASE hospitalae";
+            String createDB = "CREATE DATABASE hospitalae";
             s.executeUpdate(createDB);
         }
         catch (Exception e){
@@ -34,7 +32,7 @@ public class initialiseDB {
 
         conn=DriverManager.getConnection(dbUrl);
 
-        //create bed table
+        //create bed tablex
         try {
             String createBedsTable=" CREATE TABLE hospitalae.public.beds(availability boolean,id integer NOT NULL, bed_id integer NOT NULL,patient_id character varying(128),doctor_id character varying(128),check_in_time character varying(128));";
 

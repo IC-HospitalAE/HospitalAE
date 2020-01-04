@@ -4,8 +4,7 @@ import java.sql.*;
 public class connectDatabase {
 
     private String url="jdbc:postgresql://localhost/hospitalae";
-    String password="pass";
-    String username="user";
+
     private Connection conn ;
 
     public connectDatabase() throws SQLException {
