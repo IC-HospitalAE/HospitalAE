@@ -31,6 +31,7 @@
     <orderEntry type="library" name="Gradle: com.heroku.sdk:heroku-jdbc:0.1.1" level="project" />
     <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.8.6" level="project" />
     <orderEntry type="library" name="Gradle: com.heroku.api:heroku-api:0.37" level="project" />
+    <orderEntry type="library" name="Gradle: org.mybatis:mybatis:3.5.3" level="project" />
     <orderEntry type="library" name="Gradle: junit:junit:4.12" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-jasper:8.5.11" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-websocket:8.5.11" level="project" />

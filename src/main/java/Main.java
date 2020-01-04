@@ -1,14 +1,18 @@
 import UI.MenuBar;
 import UI.mainPage;
+import database_conn.initialiseDB;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.sql.*;
+import java.sql.SQLException;
 
 public class Main {
     public static void main(String args[]) throws SQLException, URISyntaxException, IOException {
+
+        initialiseDB db=new initialiseDB(); //initlaise the database
+
         JFrame mainFrame=new JFrame("Hospital");
         JPanel p;
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -19,6 +23,7 @@ public class Main {
         mainFrame.getContentPane().add(p);
         mainFrame.setVisible(true);
         mainFrame.setDefaultCloseOperation(3);
+
     }
 }
 

@@ -1,18 +1,18 @@
 package patients;
-import UI.MenuBar;
-import database_conn.connectDatabase;
-import UI.setupFrame;
 import UI.countRowsRequired;
+import UI.setupFrame;
+import database_conn.connectDatabase;
+
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URISyntaxException;
-import java.sql.*;
-import bed.assignBed;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
-public class removePatient{
+public class searchPatient {
     private setupFrame frame =new setupFrame();
     private JPanel mainPanel=new JPanel(new GridLayout(4,5));
     private JPanel panel1=new JPanel(new FlowLayout());
@@ -36,7 +36,7 @@ public class removePatient{
 
     String nameEntered=new String();
 
-    public removePatient() throws SQLException, URISyntaxException {
+    public searchPatient() throws SQLException, URISyntaxException {
 
         //gridlayout for patient list
         GridLayout gl=new GridLayout();

@@ -17,10 +17,10 @@ import java.util.Properties;
 // 3 doctor should have less than ten shifts
 // 4 doctor should not work the previous shift or the next shift
 
-public class sendEmailFunction {
+public class sendEmail {
 
         //Start to find data in sql
-    public sendEmailFunction() throws SQLException {
+    public sendEmail() throws SQLException {
         connectDatabase conn=new connectDatabase();
         try {
 

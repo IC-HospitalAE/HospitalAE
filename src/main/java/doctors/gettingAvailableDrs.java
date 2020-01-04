@@ -34,18 +34,16 @@ public class gettingAvailableDrs {
     private void decodeTime() throws SQLException {
         setCurrentTime();
 
+
         for(Map.Entry<String, String> entry : doctors.entrySet()) {
             String tt = entry.getValue();
             String drname = entry.getKey();
 
-            allDoctors.add(drname);
+            allDoctors.add(drname); //stores dr names into an array
 
             StringBuilder bld = new StringBuilder();
 
-            //System.out.println(tt);
             String[] splitTimetable = tt.split(" ");
-
-           // System.out.println(drname);
 
             //converts the coded timetable to Java standard date and time
             //this will allows to check if dr is on duty
@@ -147,13 +145,13 @@ public class gettingAvailableDrs {
             }
 
             String timetable=bld.toString();
-            //System.out.println();
 
-            //replaces coded timetable to new one
+            //replaces coded timetable to new one in hashmap
             doctors.replace(drname,tt,timetable);
         }
 
 
+        //loops through hashmap and send the name to the function to determine if dr is available
         for(Map.Entry<String, String> entry : doctors.entrySet()){
             //send each dr time timetable
             //get if the dr is available
@@ -162,6 +160,7 @@ public class gettingAvailableDrs {
         }
     }
 
+    //fucntion to set the current time to that of the system's
     private void setCurrentTime(){
         //get the current time from the system
         Calendar cal = Calendar.getInstance();
@@ -174,6 +173,7 @@ public class gettingAvailableDrs {
         bld.append(dayToday+" "+timeNow);
         String timeDate = bld.toString();
     }
+
 
     private void whichDrisAvailableNow(String name){
 
@@ -193,17 +193,11 @@ public class gettingAvailableDrs {
                 int timeDr=Integer.parseInt(times);
                 int timenow=Integer.parseInt(timeNow);
 
-                //System.out.println(timeDr-timenow);
-
                 //checks which shift NOW
                 timenow=checkTimeShift(timenow);
-               // System.out.println(timenow);
 
                 //check which shift dr
                 timeDr=checkTimeShift(timeDr);
-               // System.out.println(timeDr);
-
-                String[]splitName=name.split(" ");
 
                 if( (day.equals(dayToday)) && timenow==timeDr){
                     availableDr.add(name); //dr avaiable today and on shift now
@@ -217,10 +211,11 @@ public class gettingAvailableDrs {
         }else{
             //doctors not available today
             notAvailableToday.add(name);
-            //setWorkload(name);
+            setWorkload(name);
         }
     }
 
+    //check which time shift the entered time is on
     private int checkTimeShift(int time_in){
         //return 1 if shift 1
         //return 2 if shift 2
@@ -234,6 +229,7 @@ public class gettingAvailableDrs {
             return 3;
     }
 
+    //calculated the workload of the doctor
     private void setWorkload(String name_in){
         String workload=doctors.get(name_in);
         workload=workload.replaceAll(",","");

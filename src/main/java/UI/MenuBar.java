@@ -1,7 +1,7 @@
 package UI;
 import doctors.doctorView;
 import patients.patientsView;
-import patients.removePatient;
+import patients.searchPatient;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -28,7 +28,7 @@ public class MenuBar extends JMenuBar{
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try{
-                    removePatient remove=new removePatient();
+                    searchPatient remove=new searchPatient();
                     System.out.println("TEST");
 
                 }catch(SQLException | URISyntaxException e){

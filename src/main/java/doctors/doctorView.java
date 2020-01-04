@@ -43,7 +43,7 @@ public class doctorView {
         assignBed aa=new assignBed();
 
         Statement s = conn.createStatement();
-        String sql = "SELECT firstname,lastname,identitynumber,email,workload,availability,shift from doctors WHERE id>0 ORDER BY availability;" ;
+        String sql = "SELECT firstname,lastname,identitynumber,email,workload,availability,shift from doctors WHERE id>0 ORDER BY firstname;" ;
         ResultSet rset = s.executeQuery(sql);
 
         int numberRows = new countRowsRequired().getrowCount();

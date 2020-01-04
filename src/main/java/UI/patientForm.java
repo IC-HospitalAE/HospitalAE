@@ -190,7 +190,7 @@ public class patientForm{
             doctorAvailable.add(names);
         }
 
-        int max=doctorAvailable.size();
+        int max=doctorAvailable.size(); //highest index
 
         System.out.println("max "+max);
         int rand = ThreadLocalRandom.current().nextInt(min, max);

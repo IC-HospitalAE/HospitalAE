@@ -1,7 +1,7 @@
 package UI;
 import bed.bedMap;
 import doctors.doctorView;
-import doctors.sendEmailToDrs;
+import doctors.updateLocalDoctorDB;
 import patients.patientsView;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -47,7 +47,7 @@ public class mainPage {
         viewDr.addActionListener(actionEvent -> {
 
             try {
-                sendEmailToDrs pp=new sendEmailToDrs();
+                updateLocalDoctorDB pp=new updateLocalDoctorDB();
                 doctorView dr = new doctorView();
             } catch (SQLException | IOException | URISyntaxException e) {
                 e.printStackTrace();

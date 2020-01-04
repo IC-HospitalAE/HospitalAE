@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class sendEmailToDrs {
+public class updateLocalDoctorDB {
     gettingAvailableDrs getDr= new gettingAvailableDrs();
 
    private ArrayList<String> doctorsAvailable =getDr.getAvailableDr();
@@ -19,11 +19,11 @@ public class sendEmailToDrs {
 
    private connectDatabase conn;
 
-   private sendEmailFunction sendemail;
+   private sendEmail sendemail;
 
-   public sendEmailToDrs() throws SQLException, IOException {
+   public updateLocalDoctorDB() throws SQLException, IOException {
        setDrAvailability();
-       sendEmail();
+       sendEmailToDr();
    }
 
     public void setDrAvailability() throws SQLException {
@@ -56,7 +56,7 @@ public class sendEmailToDrs {
         conn.close();
     }
 
-    public void sendEmail() throws SQLException {
+    public void sendEmailToDr() throws SQLException {
 
         conn=new connectDatabase();
         conn.getConnection();

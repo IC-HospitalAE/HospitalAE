@@ -28,6 +28,10 @@ dependencies {
     compile files('lib/mail.jar')
     compile files('lib/activation.jar')
     compile group: 'com.heroku.api', name: 'heroku-api', version: '0.37'
+
+// https://mvnrepository.com/artifact/org.mybatis/mybatis
+    compile group: 'org.mybatis', name: 'mybatis', version: '3.5.3'
+
 }
 task stage(dependsOn: ['build', 'clean'])
 build.mustRunAfter clean

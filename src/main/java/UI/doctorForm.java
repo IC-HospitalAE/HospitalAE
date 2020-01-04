@@ -19,7 +19,7 @@ public class doctorForm {
     private setupFrame frame =new setupFrame();
 
     //jpanels to add components
-    private JPanel mainPanel= new JPanel(new GridLayout(7,2));
+    private JPanel mainPanel= new JPanel(new GridLayout(6,2));
     private JPanel buttonPanel=new JPanel(new GridLayout(1,10));
 
     //buttons
@@ -33,7 +33,6 @@ public class doctorForm {
     private JLabel familyLabel=new JLabel("Family name:");
     private JLabel emailLabel=new JLabel("Email:");
     private JLabel IDLabel=new JLabel("ID number:");
-    private JLabel workLabel=new JLabel("Workload (hours):");
     private final JLabel successLabel = new JLabel("Doctor added successfully!"); //prints only if patient is added
 
     //variables
@@ -41,7 +40,6 @@ public class doctorForm {
     private String familyname=new String();
     private String ID=new String();
     private String email=new String();
-    private String workhrs=new String();
 
     public doctorForm() throws SQLException, URISyntaxException {
 
@@ -67,10 +65,9 @@ public class doctorForm {
                 familyname=familyField.getText();
                 ID=IDField.getText();
                 email=emailField.getText();
-                workhrs=workField.getText();
 
                 //add to Doctor class then send as JSON to cloud
-                doctor=new Doctor(given_name,familyname,ID,workhrs);
+                doctor=new Doctor(given_name,familyname,ID);
 
                 //add to arraylist
                 dr_db.addDoctor(doctor);
@@ -79,7 +76,8 @@ public class doctorForm {
                 //add dr to postgres db
                 try {
                     Statement s=conn.createStatement();
-                    String sqlStr = "INSERT INTO doctors (firstname, lastname,identitynumber, email, workload) values ('"+given_name+"','"+familyname+"','"+ID+"','"+email+"','"+workhrs+"');";
+                    String sqlStr = "INSERT INTO public.doctors (firstname, lastname, identitynumber, email, workload, availability, num_patients, shift) " +
+                            "values ('"+given_name+"','"+familyname+"','"+ID+"','"+email+"','',true,0,'')";
                     s.execute (sqlStr);
                     conn.close();
                 }
@@ -119,8 +117,6 @@ public class doctorForm {
         mainPanel.add(emailField);
         mainPanel.add(IDLabel);
         mainPanel.add(IDField);
-        mainPanel.add(workLabel);
-        mainPanel.add(workField);
         mainPanel.add(successLabel);
     }
 

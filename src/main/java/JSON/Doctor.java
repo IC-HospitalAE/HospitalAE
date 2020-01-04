@@ -7,9 +7,8 @@ public class Doctor extends Person {
     //private time_availability;
 
 
-    public Doctor(String firstn,String lname, String ID, String work){
+    public Doctor(String firstn,String lname, String ID){
         super(firstn,lname,ID);
-        this.workload=work;
     }
 
     public String getLastname() {
