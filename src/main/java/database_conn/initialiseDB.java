@@ -9,7 +9,7 @@ public class initialiseDB {
 
     private Connection conn;
     String url="jdbc:postgresql://localhost/";
-    String dbUrl="jdbc:postgresql://localhost/project";
+    String dbUrl="jdbc:postgresql://localhost/hospitalae";
 
     public initialiseDB() throws SQLException {
         try {
@@ -24,7 +24,7 @@ public class initialiseDB {
         //create database
         try {
             Statement s=conn.createStatement();
-            String createDB = "CREATE DATABASE project";
+            String createDB = "create DATABASE hospitalae";
             s.executeUpdate(createDB);
         }
         catch (Exception e){
@@ -34,7 +34,7 @@ public class initialiseDB {
 
         //create bed table
         try {
-            String createBedsTable=" CREATE TABLE project.public.beds(availability boolean,id integer NOT NULL, bed_id integer NOT NULL,patient_id character varying(128),doctor_id character varying(128),check_in_time character varying(128));";
+            String createBedsTable=" CREATE TABLE hospitalae.public.beds(availability boolean,id integer NOT NULL, bed_id integer NOT NULL,patient_id character varying(128),doctor_id character varying(128),check_in_time character varying(128));";
 
             //initialise sequence
             String bedSeq="CREATE SEQUENCE public.beds_id_seq AS integer START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;";
@@ -79,7 +79,7 @@ public class initialiseDB {
 
         //create doctor table
         try {
-            String createDrTable=" CREATE TABLE project.public.doctors (id integer NOT NULL ,firstname character varying(128) NOT NULL,lastname character varying(128) NOT NULL, identitynumber character varying(32) NOT NULL,  email character varying(128) NOT NULL, workload character varying(10) NOT NULL, availability boolean, num_patients integer,shift varchar (50));";
+            String createDrTable=" CREATE TABLE hospitalae.public.doctors (id integer NOT NULL ,firstname character varying(128) NOT NULL,lastname character varying(128) NOT NULL, identitynumber character varying(32) NOT NULL,  email character varying(128) NOT NULL, workload character varying(10) NOT NULL, availability boolean, num_patients integer,shift varchar (50));";
 
             //initialise sequence
             String DrSeq="CREATE SEQUENCE public.doctors_id_seq AS integer START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;";
@@ -113,7 +113,7 @@ public class initialiseDB {
         }
 
         try {
-            String createPatientTable="CREATE TABLE project.public.patients ( id integer NOT NULL, phonenumber character varying(32) NOT NULL,  identitynumber character varying(50) NOT NULL, age character varying(3) NOT NULL, notes text, admit_status boolean, bednumber character varying(5),time_date character varying(255),discharge_time character varying(255),firstname character varying(128) NOT NULL,lastname character varying(128) NOT NULL,doctor_incharge character varying(128));\n";
+            String createPatientTable="CREATE TABLE hospitalae.public.patients ( id integer NOT NULL, phonenumber character varying(32) NOT NULL,  identitynumber character varying(50) NOT NULL, age character varying(3) NOT NULL, notes text, admit_status boolean, bednumber character varying(5),time_date character varying(255),discharge_time character varying(255),firstname character varying(128) NOT NULL,lastname character varying(128) NOT NULL,doctor_incharge character varying(128));\n";
 
             //initialise sequence
             String PatientSeq="CREATE SEQUENCE public.patients_id_seq AS integer START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;";
