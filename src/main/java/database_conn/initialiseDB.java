@@ -10,6 +10,8 @@ public class initialiseDB {
     private Connection conn;
     String url="jdbc:postgresql://localhost/";
     String dbUrl="jdbc:postgresql://localhost/hospitalae";
+    String password="pass";
+    String username="user";
 
     public initialiseDB() throws SQLException {
         try {
