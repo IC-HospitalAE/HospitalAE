@@ -10,8 +10,8 @@ public class initialiseDB {
     private Connection conn;
     String username="postgres";
     String password="password";
-   // String url="jdbc:postgresql://localhost/postgres?currentSchema=public&user=postgres&password=password"; // OR
-    String url="jdbc:postgresql://localhost/";
+    String url="jdbc:postgresql://localhost/postgres?currentSchema=public&user=postgres&password=alanBetter0117"; // OR
+    //String url="jdbc:postgresql://localhost/";
     String dbUrl="jdbc:postgresql://localhost/hospitalae?currentSchema=public&user=postgres&password=password";
 
 
@@ -23,7 +23,7 @@ public class initialiseDB {
             e.printStackTrace();
         }
 
-        conn= DriverManager.getConnection(url, "postgres", "password"); //CHANGE TO WTV U SET IT UP AS
+        conn= DriverManager.getConnection(url, "postgres", "alanBetter0117"); //CHANGE TO WTV U SET IT UP AS
         System.out.println("connection 1 success");
 
         //create database
