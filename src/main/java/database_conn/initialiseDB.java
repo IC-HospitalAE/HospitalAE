@@ -36,7 +36,7 @@ public class initialiseDB {
         catch (Exception e){
         }
 
-        conn=DriverManager.getConnection(dbUrl,"postgres","password");
+        conn=DriverManager.getConnection(dbUrl,"postgres","alanBetter0117");
         System.out.println("connection 2 success");
 
         //create bed tablex
