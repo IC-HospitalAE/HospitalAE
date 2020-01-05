@@ -10,6 +10,7 @@ public class initialiseDB {
     private Connection conn;
     String username="postgres";
     String password="password";
+   // String url="jdbc:postgresql://localhost/postgres?currentSchema=public&user=postgres&password=password"; // OR
     String url="jdbc:postgresql://localhost/";
     String dbUrl="jdbc:postgresql://localhost/hospitalae?currentSchema=public&user=postgres&password=password";
 
@@ -22,13 +23,13 @@ public class initialiseDB {
             e.printStackTrace();
         }
 
-        conn= DriverManager.getConnection(url);
+        conn= DriverManager.getConnection(url, "postgres", "password"); //CHANGE TO WTV U SET IT UP AS
         System.out.println("connection 1 success");
 
         //create database
         try {
             Statement s=conn.createStatement();
-            String createDB = "create DATABASE hospitalae";
+            String createDB = "CREATE DATABASE hospitalae";
             s.executeUpdate(createDB);
         }
         catch (Exception e){
@@ -118,7 +119,7 @@ public class initialiseDB {
         }
 
         try {
-            String createPatientTable="CREATE TABLE hospitalae.public.patients ( id integer NOT NULL, phonenumber character varying(32) NOT NULL,  identitynumber character varying(50) NOT NULL, age character varying(3) NOT NULL, notes text, admit_status boolean, bednumber character varying(5),time_date character varying(255),discharge_time character varying(255),firstname character varying(128) NOT NULL,lastname character varying(128) NOT NULL,doctor_incharge character varying(128));\n";
+            String createPatientTable="CREATE TABLE hospitalae.public.patients ( id integer NOT NULL, phonenumber character varying(32) NOT NULL,  identitynumber character varying(50) NOT NULL, age character varying(50) NOT NULL, notes text, admit_status boolean, bednumber character varying(5),time_date character varying(255),discharge_time character varying(255),firstname character varying(128) NOT NULL,lastname character varying(128) NOT NULL,doctor_incharge character varying(128));\n";
 
             //initialise sequence
             String PatientSeq="CREATE SEQUENCE public.patients_id_seq AS integer START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;";
