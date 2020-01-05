@@ -14,7 +14,7 @@ public class connectDatabase {
         } catch (Exception e) {
             e.getMessage();
         }
-        conn=DriverManager.getConnection(url,"postgres","password");
+        conn=DriverManager.getConnection(url,"postgres","alanBetter0117");
     }
 
     public Connection getConnection() throws SQLException {
