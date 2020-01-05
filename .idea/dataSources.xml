@@ -7,11 +7,5 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://ec2-46-137-113-157.eu-west-1.compute.amazonaws.com:5432/d14dthkltqk9a5</jdbc-url>
     </data-source>
-    <data-source source="LOCAL" name="hospitalae@localhost" uuid="1b3c0530-de3c-4564-b742-8a7c56c72f70">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/hospitalae</jdbc-url>
-    </data-source>
   </component>
 </project>
