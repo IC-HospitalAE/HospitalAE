@@ -8,10 +8,11 @@ import java.sql.Statement;
 public class initialiseDB {
 
     private Connection conn;
-    String username="postgres";
-    String password="password";
-    String url="jdbc:postgresql://localhost/postgres?currentSchema=public&user=postgres&password=alanBetter0117"; // OR
-    //String url="jdbc:postgresql://localhost/";
+
+
+    //String url="jdbc:postgresql://localhost/postgres?currentSchema=public&user=postgres&password=alanBetter0117"; // OR
+
+    String url="jdbc:postgresql://localhost/";
     String dbUrl="jdbc:postgresql://localhost/hospitalae?currentSchema=public&user=postgres&password=password";
 
 
@@ -23,7 +24,7 @@ public class initialiseDB {
             e.printStackTrace();
         }
 
-        conn= DriverManager.getConnection(url, "postgres", "alanBetter0117"); //CHANGE TO WTV U SET IT UP AS
+        conn= DriverManager.getConnection(url, "postgres", "alanBetter0117");
         System.out.println("connection 1 success");
 
         //create database
@@ -35,7 +36,7 @@ public class initialiseDB {
         catch (Exception e){
         }
 
-        conn=DriverManager.getConnection(dbUrl,username,password);
+        conn=DriverManager.getConnection(dbUrl,"postgres","password");
         System.out.println("connection 2 success");
 
         //create bed tablex
