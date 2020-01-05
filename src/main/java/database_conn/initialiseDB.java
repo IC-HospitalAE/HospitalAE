@@ -8,8 +8,11 @@ import java.sql.Statement;
 public class initialiseDB {
 
     private Connection conn;
+    String username="postgres";
+    String password="password";
     String url="jdbc:postgresql://localhost/";
-    String dbUrl="jdbc:postgresql://localhost/hospitalae";
+    String dbUrl="jdbc:postgresql://localhost/hospitalae?currentSchema=hospitalae&user=postgres&password=password";
+
 
     public initialiseDB() throws SQLException {
         try {
@@ -24,13 +27,13 @@ public class initialiseDB {
         //create database
         try {
             Statement s=conn.createStatement();
-            String createDB = "drop DATABASE hospitalae";
+            String createDB = "CREATE DATABASE hospitalae";
             s.executeUpdate(createDB);
         }
         catch (Exception e){
         }
 
-        conn=DriverManager.getConnection(dbUrl);
+        conn=DriverManager.getConnection(dbUrl,username,password);
 
         //create bed tablex
         try {
