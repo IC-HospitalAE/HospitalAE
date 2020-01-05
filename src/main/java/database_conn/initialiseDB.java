@@ -13,7 +13,7 @@ public class initialiseDB {
     //String url="jdbc:postgresql://localhost/postgres?currentSchema=public&user=postgres&password=alanBetter0117"; // OR
 
     String url="jdbc:postgresql://localhost/";
-    String dbUrl="jdbc:postgresql://localhost/hospitalae?currentSchema=public&user=postgres&password=password";
+    String dbUrl="jdbc:postgresql://localhost/hospitalae";
 
 
     public initialiseDB() throws SQLException {
@@ -30,13 +30,13 @@ public class initialiseDB {
         //create database
         try {
             Statement s=conn.createStatement();
-            String createDB = "CREATE DATABASE hospitalae";
+            String createDB = "create DATABASE hospitalae";
             s.executeUpdate(createDB);
         }
         catch (Exception e){
         }
 
-        conn=DriverManager.getConnection(dbUrl,"postgres","alanBetter0117");
+        conn=DriverManager.getConnection(dbUrl);
         System.out.println("connection 2 success");
 
         //create bed tablex
