@@ -4,7 +4,6 @@ import java.sql.*;
 public class connectDatabase {
 
     private String url="jdbc:postgresql://localhost/hospitalae";
-
     private Connection conn ;
 
     public connectDatabase() throws SQLException {
@@ -14,7 +13,7 @@ public class connectDatabase {
         } catch (Exception e) {
             e.getMessage();
         }
-        conn=DriverManager.getConnection(url);
+        conn=DriverManager.getConnection(url,"postgres","alanBetter0117");
     }
 
     public Connection getConnection() throws SQLException {
