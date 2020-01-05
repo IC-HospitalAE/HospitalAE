@@ -24,7 +24,7 @@ public class initialiseDB {
         //create database
         try {
             Statement s=conn.createStatement();
-            String createDB = "CREATE DATABASE hospitalae";
+            String createDB = "drop DATABASE hospitalae";
             s.executeUpdate(createDB);
         }
         catch (Exception e){

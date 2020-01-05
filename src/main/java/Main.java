@@ -12,7 +12,7 @@ public class Main {
     public static void main(String args[]) throws SQLException, URISyntaxException, IOException {
 
         initialiseDB db=new initialiseDB(); //initlaise the database
-
+        System.out.println("Success!!!");
         JFrame mainFrame=new JFrame("Hospital");
         JPanel p;
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

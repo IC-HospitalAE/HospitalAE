@@ -2,6 +2,21 @@ plugins {
     id 'java'
     id 'application'
 }
+jar {
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    manifest {
+        attributes(
+                'Implementation-Title': 'Jar Making Exaple',
+                "Main-Class": "Main"
+        )
+    }
+    destinationDirectory = file("$rootDir/my-jar")
+    archivesBaseName = 'app'
+}
+
+
 application {
     mainClassName='Main'
 }
