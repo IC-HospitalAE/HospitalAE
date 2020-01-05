@@ -13,7 +13,7 @@ public class initialiseDB {
     //String url="jdbc:postgresql://localhost/postgres?currentSchema=public&user=postgres&password=alanBetter0117"; // OR
 
     String url="jdbc:postgresql://localhost/";
-    String dbUrl="jdbc:postgresql://localhost/hospitalae";
+    String dbUrl="jdbc:postgresql://localhost/hospitalae?currentSchema=public&user=postgres&password=password";
 
 
     public initialiseDB() throws SQLException {
@@ -36,7 +36,7 @@ public class initialiseDB {
         catch (Exception e){
         }
 
-        conn=DriverManager.getConnection(dbUrl);
+        conn=DriverManager.getConnection(dbUrl,"postgres","password");
         System.out.println("connection 2 success");
 
         //create bed tablex
