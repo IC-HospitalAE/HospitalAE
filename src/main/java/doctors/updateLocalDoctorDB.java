@@ -77,7 +77,7 @@ public class updateLocalDoctorDB {
         //if there are less dr available than the number of doctors needed
         //send email
         if(numOfDr<minNumOfDr){
-            //sendemail=new sendEmailFunction();
+            sendemail=new sendEmail();
         }else{
 
         }
