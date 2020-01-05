@@ -11,7 +11,7 @@ public class initialiseDB {
     String username="postgres";
     String password="password";
     String url="jdbc:postgresql://localhost/";
-    String dbUrl="jdbc:postgresql://localhost/hospitalae?currentSchema=hospitalae&user=postgres&password=password";
+    String dbUrl="jdbc:postgresql://localhost/hospitalae?currentSchema=public&user=postgres&password=password";
 
 
     public initialiseDB() throws SQLException {
@@ -28,7 +28,7 @@ public class initialiseDB {
         //create database
         try {
             Statement s=conn.createStatement();
-            String createDB = "CREATE DATABASE hospitalae";
+            String createDB = "create DATABASE hospitalae";
             s.executeUpdate(createDB);
         }
         catch (Exception e){

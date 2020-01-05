@@ -3,7 +3,7 @@ import java.sql.*;
 
 public class connectDatabase {
 
-    private String url="jdbc:postgresql://localhost/hospitalae?currentSchema=hospitalae&user=postgres&password=password";
+    private String url="jdbc:postgresql://localhost/hospitalae?currentSchema=public&user=postgres&password=password";
     String username="postgres";
     String password="password";
     private Connection conn ;
