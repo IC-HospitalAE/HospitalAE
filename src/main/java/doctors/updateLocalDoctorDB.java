@@ -78,6 +78,7 @@ public class updateLocalDoctorDB {
         //send email
         if(numOfDr<minNumOfDr){
             sendemail=new sendEmail();
+            System.out.println("SEMT");
         }else{
 
         }
