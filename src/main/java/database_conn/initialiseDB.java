@@ -13,7 +13,7 @@ public class initialiseDB {
     //String url="jdbc:postgresql://localhost/postgres?currentSchema=public&user=postgres&password=alanBetter0117"; // OR
 
     String url="jdbc:postgresql://localhost/";
-    String dbUrl="jdbc:postgresql://localhost/hospitalae?currentSchema=public&user=postgres&password=password";
+    String dbUrl="jdbc:postgresql://localhost/hospitalae";
 
 
     public initialiseDB() throws SQLException {
