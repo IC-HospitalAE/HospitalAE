@@ -3,8 +3,9 @@ import java.sql.*;
 
 public class connectDatabase {
 
-    private String url="jdbc:postgresql://localhost/hospitalae";
-
+    private String url="jdbc:postgresql://localhost/hospitalae?currentSchema=public&user=postgres&password=password";
+    String username="postgres";
+    String password="password";
     private Connection conn ;
 
     public connectDatabase() throws SQLException {
@@ -14,7 +15,7 @@ public class connectDatabase {
         } catch (Exception e) {
             e.getMessage();
         }
-        conn=DriverManager.getConnection(url);
+        conn=DriverManager.getConnection(url,username,password);
     }
 
     public Connection getConnection() throws SQLException {

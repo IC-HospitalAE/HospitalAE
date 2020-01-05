@@ -31,7 +31,7 @@ public class sendEmail {
             //3. doctor has less than 10 shifts DONE HERE
             //4. doctor should not work the previous shift or the next shift (should be linked to the doctors timetable)
             Statement s1 = conn.createStatement();
-            String sqlStr = "SELECT email FROM doctors WHERE availability = 'false' AND workload < '10';";
+            String sqlStr = "SELECT email FROM doctors WHERE availability = 'false';";
             ResultSet r = s1.executeQuery(sqlStr);
 
             while (r.next()) {

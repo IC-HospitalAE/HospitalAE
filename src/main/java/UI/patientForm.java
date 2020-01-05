@@ -4,6 +4,7 @@ import JSON.Patient;
 import JSON.patientArray;
 import bed.assignBed;
 import database_conn.connectDatabase;
+import doctors.sendEmail;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -191,6 +192,12 @@ public class patientForm{
         }
 
         int max=doctorAvailable.size(); //highest index
+
+        if(max==0){
+            sendEmail sendmail= new sendEmail();
+        }else{
+            System.out.println("no email sent");
+        }
 
         System.out.println("max "+max);
         int rand = ThreadLocalRandom.current().nextInt(min, max);
