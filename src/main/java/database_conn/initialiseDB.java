@@ -23,6 +23,7 @@ public class initialiseDB {
         }
 
         conn= DriverManager.getConnection(url);
+        System.out.println("connection 1 success");
 
         //create database
         try {
@@ -34,6 +35,7 @@ public class initialiseDB {
         }
 
         conn=DriverManager.getConnection(dbUrl,username,password);
+        System.out.println("connection 2 success");
 
         //create bed tablex
         try {
