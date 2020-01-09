@@ -1,5 +1,13 @@
 package database_conn;
 
+import UI.MenuBar;
+import UI.mainUI;
+import UI.setupFrame;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -7,15 +15,24 @@ import java.sql.Statement;
 
 public class initialiseDB {
 
+    private static boolean success;
     private Connection conn;
-    String username="postgres";
-    String password="password";
-   // String url="jdbc:postgresql://localhost/postgres?currentSchema=public&user=postgres&password=password"; // OR
     String url="jdbc:postgresql://localhost/";
-    String dbUrl="jdbc:postgresql://localhost/hospitalae?currentSchema=public&user=postgres&password=password";
+    String dbUrl="jdbc:postgresql://localhost/hospitalae";
 
 
-    public initialiseDB() throws SQLException {
+    private setupFrame frame =new setupFrame();
+    private JPanel mainPanel=new JPanel(new GridLayout(3,1));
+
+    private JTextField usernameField=new JTextField();
+    private JTextField passwordField=new JTextField();
+    private JLabel usernameLabel= new JLabel("Username: ");
+    private JLabel passwordLabel=new JLabel("Password: ");
+
+    private JButton submit =new JButton("Enter");
+
+
+    public initialiseDB(String username,String password) throws SQLException, IOException, URISyntaxException {
         try {
             // Registers the driver
             Class.forName("org.postgresql.Driver");
@@ -23,7 +40,8 @@ public class initialiseDB {
             e.printStackTrace();
         }
 
-        conn= DriverManager.getConnection(url, "postgres", "password"); //CHANGE TO WTV U SET IT UP AS
+        //to connect to the localhost server
+        conn= DriverManager.getConnection(url, username, password);
         System.out.println("connection 1 success");
 
         //create database
@@ -33,12 +51,14 @@ public class initialiseDB {
             s.executeUpdate(createDB);
         }
         catch (Exception e){
+
         }
 
+        //connects to newly created database
         conn=DriverManager.getConnection(dbUrl,username,password);
         System.out.println("connection 2 success");
 
-        //create bed tablex
+        //create bed tables
         try {
             String createBedsTable=" CREATE TABLE hospitalae.public.beds(availability boolean,id integer NOT NULL, bed_id integer NOT NULL,patient_id character varying(128),doctor_id character varying(128),check_in_time character varying(128));";
 
@@ -81,6 +101,7 @@ public class initialiseDB {
             s.close();
         }
         catch (Exception e){
+            e.printStackTrace();
         }
 
         //create doctor table
@@ -115,7 +136,7 @@ public class initialiseDB {
 
         }
         catch (Exception e){
-
+            e.printStackTrace();
         }
 
         try {
@@ -137,7 +158,23 @@ public class initialiseDB {
             conn.close();
         }
         catch (Exception e){
+            e.printStackTrace();
         }
 
+        //launch the main homepage
+        setupMainFrame();
+    }
+
+    private void setupMainFrame() throws SQLException, IOException, URISyntaxException {
+        JFrame mainFrame=new JFrame("Hospital");
+        JPanel p;
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        mainFrame.setSize(screenSize.width, screenSize.height);
+        mainFrame.setJMenuBar(new MenuBar());
+        mainUI main=new mainUI();
+        p=main.getMainPanel();
+        mainFrame.getContentPane().add(p);
+        mainFrame.setVisible(true);
+        mainFrame.setDefaultCloseOperation(3);
     }
 }
