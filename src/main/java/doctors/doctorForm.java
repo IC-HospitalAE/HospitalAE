@@ -1,4 +1,5 @@
-package UI;
+package doctors;
+import UI.setupFrame;
 import database_conn.connectDatabase;
 import JSON.Doctor;
 import JSON.doctor_database;

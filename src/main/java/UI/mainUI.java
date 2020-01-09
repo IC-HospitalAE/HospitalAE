@@ -13,12 +13,11 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
 
-public class mainPage {
+public class mainUI {
 
     private JPanel buttonPanel=new JPanel(new GridLayout(7,1));
     private JPanel mainPanel=new JPanel(new GridLayout(2,1));
     private JPanel addPatientsPanel=new JPanel();
-
     private  JPanel mapview=new JPanel();
 
     private JButton viewP,viewDr;
@@ -28,7 +27,7 @@ public class mainPage {
 
     private bedMap bedmap = new bedMap();
 
-    public mainPage() throws SQLException, URISyntaxException, IOException {
+    public mainUI() throws SQLException, URISyntaxException, IOException {
 
         viewP=new JButton("View all patients");
         viewDr= new JButton("View available doctors");

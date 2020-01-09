@@ -1,4 +1,5 @@
 package UI;
+import doctors.doctorForm;
 import doctors.doctorView;
 import patients.patientsView;
 import patients.searchPatient;

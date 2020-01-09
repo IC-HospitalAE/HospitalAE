@@ -32,4 +32,17 @@ public class setupFrame {
     public void setBackground(Color colour){
         frame.setBackground(colour);
     }
+
+    public void setSize(int h,int w){
+        frame.setSize(w,h);
+    }
+
+    public void closeFrame(){
+        frame.setVisible(false);
+    }
+    public void setCenter(){
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+    }
+
 }

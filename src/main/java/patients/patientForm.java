@@ -1,7 +1,8 @@
-package UI;
+package patients;
 
 import JSON.Patient;
 import JSON.patientArray;
+import UI.setupFrame;
 import bed.assignBed;
 import database_conn.connectDatabase;
 import doctors.sendEmail;
@@ -272,9 +273,6 @@ public class patientForm{
         bedsPanel.setBackground(background);
 
         mainPanel.setBorder(new EmptyBorder(0,10,0,10));
-
-
-
     }
     private void initialiseFormField(String bed_in) {
         nameField=new JTextField();

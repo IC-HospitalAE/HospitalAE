@@ -13,7 +13,7 @@ import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import UI.patientForm;
+import patients.patientForm;
 import database_conn.connectDatabase;
 import patients.dischargePatient;
 
