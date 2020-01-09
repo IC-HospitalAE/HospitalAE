@@ -15,7 +15,7 @@ import javax.activation.*;
 public class sendemail {
     public static void main(String[] args) throws SQLException {
 
-        //Start to find data in sql
+        //State URL of database
         String dbUrl = "jdbc:postgresql://localhost:5432/postgres";
 
         try {
@@ -25,6 +25,7 @@ public class sendemail {
 
         }
 
+        //login SQL
         Connection conn = DriverManager.getConnection(dbUrl, "postgres", "Tchz1998!");
 
 
@@ -33,14 +34,16 @@ public class sendemail {
             //run sql string to select doctors meeting the conditions
             //Conditions:
             //1. new patient checks in (should be an if statement in reception app main())
-            //1. doctor is available DONE HERE
+            //2. doctor is available DONE HERE
             //3. doctor has less than 10 shifts DONE HERE
             //4. doctor should not work the previous shift or the next shift (should be linked to the doctors timetable)
+
             Statement s1 = conn.createStatement();
             String sqlStr = "SELECT * FROM doctors WHERE availability = 'false' AND workload < '10';";
             ResultSet r = s1.executeQuery(sqlStr);
 
             while (r.next()) {
+                //info of the email address
                 String to = r.getString("email");//change accordingly
                 String from = "chenhongzhang98@gmail.com";//send emails from this email address
                 String host = "localhost";//or IP address
@@ -80,6 +83,7 @@ public class sendemail {
 
 
             }
+            //close everything
             r.close();
             s1.close();
             conn.close();
