@@ -128,22 +128,27 @@ public class patientForm{
                 }
 
                 try{
+                    String drassigned=null;
                     String timeDate=dtf.format(now);
-                    String drassigned=doctorAvailable.get(rand());
 
-                    String[] firstnameDr=drassigned.split(" ");
-                    System.out.println(firstnameDr[0]);
+                    if(rand()>=0){
+                        drassigned=doctorAvailable.get(rand());
+                        String[] firstnameDr=drassigned.split(" ");
+                        System.out.println(firstnameDr[0]);
 
-                    String sql2="UPDATE beds SET check_in_time='"+timeDate+"' WHERE bed_id='"+bedEntered+"' ";
-                    String sql3="UPDATE beds SET patient_id='"+name+"' where bed_id='"+bedEntered+"'";
-                    String sql4="UPDATE beds SET doctor_id='"+drassigned+"' WHERE bed_id='"+bedEntered+"'    ;";
-                    String sql5="UPDATE doctors set num_patients=num_patients+1 WHERE firstname = '"+firstnameDr[0]+"';";
+                        String sql2="UPDATE beds SET check_in_time='"+timeDate+"' WHERE bed_id='"+bedEntered+"' ";
+                        String sql3="UPDATE beds SET patient_id='"+name+"' where bed_id='"+bedEntered+"'";
+                        String sql4="UPDATE beds SET doctor_id='"+drassigned+"' WHERE bed_id='"+bedEntered+"'    ;";
+                        String sql5="UPDATE doctors set num_patients=num_patients+1 WHERE firstname = '"+firstnameDr[0]+"';";
 
-                    Statement s2=conn.createStatement();
-                    s2.execute(sql2);
-                    s2.execute(sql3);
-                    s2.execute(sql4);
-                    s2.execute(sql5);
+                        Statement s2=conn.createStatement();
+                        s2.execute(sql2);
+                        s2.execute(sql3);
+                        s2.execute(sql4);
+                        s2.execute(sql5);
+                    }else {
+                        succcessLabel.setText("Not enough doctors! Emails have been sent.");
+                    }
 
                 }catch (Exception e){
                     e.printStackTrace();
@@ -196,6 +201,7 @@ public class patientForm{
 
         if(max==0){
             sendEmail sendmail= new sendEmail();
+            return -1;
         }else{
             System.out.println("no email sent");
         }
@@ -242,7 +248,7 @@ public class patientForm{
         notesLabel.setFont(new Font("Raleway Light", Font.PLAIN, fontSize));
         bedId.setFont(new Font("Raleway Light", Font.PLAIN, fontSize));
 
-        succcessLabel.setFont(new Font("Raleway Light", Font.BOLD, 25));
+        succcessLabel.setFont(new Font("Raleway Light", Font.PLAIN, 27));
         succcessLabel.setForeground(Color.RED);
 
         bedAvailableLabel.setFont(new Font("Raleway Light", Font.PLAIN, fontSize));

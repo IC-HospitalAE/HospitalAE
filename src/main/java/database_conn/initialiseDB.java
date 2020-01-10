@@ -2,7 +2,6 @@ package database_conn;
 
 import UI.MenuBar;
 import UI.mainUI;
-import UI.setupFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,24 +14,13 @@ import java.sql.Statement;
 
 public class initialiseDB {
 
-    private static boolean success;
     private Connection conn;
     String url="jdbc:postgresql://localhost/";
     String dbUrl="jdbc:postgresql://localhost/hospitalae";
 
-
-    private setupFrame frame =new setupFrame();
-    private JPanel mainPanel=new JPanel(new GridLayout(3,1));
-
-    private JTextField usernameField=new JTextField();
-    private JTextField passwordField=new JTextField();
-    private JLabel usernameLabel= new JLabel("Username: ");
-    private JLabel passwordLabel=new JLabel("Password: ");
-
-    private JButton submit =new JButton("Enter");
-
-
     public initialiseDB(String username,String password) throws SQLException, IOException, URISyntaxException {
+
+        //register drivers
         try {
             // Registers the driver
             Class.forName("org.postgresql.Driver");
@@ -42,21 +30,20 @@ public class initialiseDB {
 
         //to connect to the localhost server
         conn= DriverManager.getConnection(url, username, password);
-        System.out.println("connection 1 success");
+        System.out.println("connection to localhost success"); //DEBUG
 
         //create database
         try {
             Statement s=conn.createStatement();
-            String createDB = "CREATE DATABASE hospitalae";
+            String createDB = "CREATE DATABASE hospitalae ";
             s.executeUpdate(createDB);
         }
         catch (Exception e){
-
         }
 
         //connects to newly created database
         conn=DriverManager.getConnection(dbUrl,username,password);
-        System.out.println("connection 2 success");
+        System.out.println("connection to hospitalAE database success"); //DEBUG
 
         //create bed tables
         try {
@@ -139,6 +126,7 @@ public class initialiseDB {
             e.printStackTrace();
         }
 
+        //create patients
         try {
             String createPatientTable="CREATE TABLE hospitalae.public.patients ( id integer NOT NULL, phonenumber character varying(32) NOT NULL,  identitynumber character varying(50) NOT NULL, age character varying(50) NOT NULL, notes text, admit_status boolean, bednumber character varying(5),time_date character varying(255),discharge_time character varying(255),firstname character varying(128) NOT NULL,lastname character varying(128) NOT NULL,doctor_incharge character varying(128));\n";
 
@@ -146,7 +134,7 @@ public class initialiseDB {
             String PatientSeq="CREATE SEQUENCE public.patients_id_seq AS integer START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;";
             String pSeq2="ALTER SEQUENCE public.patients_id_seq OWNED BY public.patients.id;";
             String pSeq3="ALTER TABLE ONLY public.patients ALTER COLUMN id SET DEFAULT nextval('public.patients_id_seq'::regclass);";
-            String pSeq4="ALTER TABLE ONLY public.patients ADD CONSTRAINT id PRIMARY KEY (id);";
+            String pSeq4="ALTER TABLE ONLY public.patients ADD CONSTRAINT public.patients.id PRIMARY KEY (id);";
 
             Statement s=conn.createStatement();
             s.executeUpdate(createPatientTable);

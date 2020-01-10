@@ -174,7 +174,6 @@ public class gettingAvailableDrs {
         String timeDate = bld.toString();
     }
 
-
     private void whichDrisAvailableNow(String name){
 
         //get the doctor's timetable
@@ -238,7 +237,6 @@ public class gettingAvailableDrs {
         int workLoad=workload.length()/5;
         drWorkloads.add(workLoad);
     }
-
 
     //this are getters for other classes to access
     public ArrayList<String> getAvailableDr(){
