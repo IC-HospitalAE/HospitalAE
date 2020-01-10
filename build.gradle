@@ -8,11 +8,11 @@ jar {
     }
     manifest {
         attributes(
-                'Implementation-Title': 'Jar Making Exaple',
+                'Implementation-Title': 'Jar',
                 "Main-Class": "Main"
         )
     }
-    destinationDirectory = file("$rootDir/my-jar")
+    destinationDirectory = file("$rootDir/jar-files")
     archivesBaseName = 'app'
 }
 

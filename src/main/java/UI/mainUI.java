@@ -1,8 +1,8 @@
 package UI;
 import bed.bedMap;
 import doctors.doctorView;
-import doctors.updateLocalDoctorDB;
 import patients.patientsView;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -46,7 +46,6 @@ public class mainUI {
         viewDr.addActionListener(actionEvent -> {
 
             try {
-                updateLocalDoctorDB pp=new updateLocalDoctorDB();
                 doctorView dr = new doctorView();
             } catch (SQLException | IOException | URISyntaxException e) {
                 e.printStackTrace();

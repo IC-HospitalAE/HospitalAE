@@ -1,5 +1,9 @@
 package bed;
 
+import database_conn.connectDatabase;
+import patients.dischargePatient;
+import patients.patientForm;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -12,10 +16,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-import patients.patientForm;
-import database_conn.connectDatabase;
-import patients.dischargePatient;
 
 public class bedMap {
 
@@ -198,7 +198,7 @@ public class bedMap {
 
     public JPanel getBedsPanel(){
         return mapView;
-    }
+    } //send this to mainUI class
 
     private void setBorder(JPanel panel_in){
         panel_in.setBorder(new LineBorder(Color.BLACK,1));

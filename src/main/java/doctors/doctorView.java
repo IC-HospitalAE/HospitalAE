@@ -21,8 +21,6 @@ public class doctorView {
     private JPanel mainPanel = new JPanel();
     private JPanel doctorPanel = new JPanel(new GridLayout(5, 2));
     private JPanel cards;
-    private JPanel btnPanel=new JPanel();
-
 
     private JLabel firstname, lastname, id, status, email, workload,shift;
 
@@ -35,6 +33,7 @@ public class doctorView {
         frame.setFrame();
         frame.setTitle("All doctors");
         frame.getFrame();
+        updateLocalDoctorDB pp=new updateLocalDoctorDB();
         getAllDoctors();
     }
 
@@ -43,7 +42,7 @@ public class doctorView {
         assignBed aa=new assignBed();
 
         Statement s = conn.createStatement();
-        String sql = "SELECT firstname,lastname,identitynumber,email,workload,availability,shift from doctors WHERE id>0 ORDER BY firstname;" ;
+        String sql = "SELECT firstname,lastname,identitynumber,email,workload,availability,shift from doctors WHERE id>0 ORDER BY availability;" ;
         ResultSet rset = s.executeQuery(sql);
 
         int numberRows = new countRowsRequired().getrowCount();
@@ -65,7 +64,7 @@ public class doctorView {
                 status = new JLabel("Status: On duty");
             }
 
-            cards = new JPanel(new GridLayout(8, 1));
+            cards = new JPanel(new GridLayout(7, 1));
             mainPanel.setLayout(new GridLayout(1, 1));
 
             cards.add(firstname);
@@ -93,8 +92,6 @@ public class doctorView {
     }
 
     private void cardStyle(JPanel card_in, boolean admit) {
-        JButton emailbtn=new JButton("Email doctor");
-        JPanel btnPanel=new JPanel();
 
         Color notduty = new Color(210, 210, 210, 255);
         Color duty = new Color(253, 253, 253);
@@ -123,13 +120,9 @@ public class doctorView {
 
         if (!admit) {
             card_in.setBackground(notduty);
-            btnPanel.add(emailbtn);
-            card_in.add(btnPanel);
         } else {
             card_in.setBackground(duty);
         }
-
-        btnPanel.setBackground(notduty);
     }
 
     private void pageStyle() {

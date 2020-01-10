@@ -50,8 +50,10 @@ public class databaseLoginDialog{
                     frame.closeFrame();
 
                 } catch (SQLException | IOException | URISyntaxException ex) {
+                    String err=ex.getMessage(); //debug
+                    errorLabel.setText(err);
                     errorLabel.setVisible(true);
-                    ex.printStackTrace(); //debug
+                    System.out.println(err);
                 }
 
             }
