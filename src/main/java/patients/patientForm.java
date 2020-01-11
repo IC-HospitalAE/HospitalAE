@@ -102,7 +102,7 @@ public class patientForm{
                 Patient patient=new Patient(name,familyname,ID,age,notes,dtf.format(now),phonenumber,bedEntered);
                 patientArray pArray=new patientArray();
                 pArray.addPatient(patient); //add to array
-                //pArray.printPatient(patient); //print it to terminal to debug
+                pArray.printPatient(patient); //print it to terminal to debug
 
                 //here goes the JSON conversion and sending to servlet
 //                sendingJSON json= new sendingJSON();
