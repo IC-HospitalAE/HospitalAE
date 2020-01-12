@@ -65,7 +65,6 @@ public class sendEmail {
 
                     // Send message
                     Transport.send(message);
-                    System.out.println("message sent successfully...");
 
                 } catch (MessagingException mex) {
                     mex.printStackTrace();
@@ -78,7 +77,6 @@ public class sendEmail {
             conn.close();
         } catch (Exception e) {
             //print line if something goes wrong
-            System.out.println("something went wrong!");
         }
     }
 
