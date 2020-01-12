@@ -26,10 +26,14 @@ public class databaseLoginDialog{
 
     private JButton submit =new JButton("Enter");
 
-    private String password;
-    private String username;
+    private static String password;
+    private static String username;
 
     public databaseLoginDialog(){
+
+    }
+
+    public void setupDialog(){
         frame.setFrame();
         frame.setSize(450,650);
         frame.setCenter();
@@ -72,6 +76,13 @@ public class databaseLoginDialog{
         mainPanel.add(titlePanel);
         mainPanel.add(inputPanel);
         frame.add(mainPanel);
+    }
+
+    protected static String getUser(){
+        return username;
+    }
+    protected String getPass(){
+        return password;
     }
 
     private void stylePage(){
