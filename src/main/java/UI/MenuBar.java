@@ -55,15 +55,6 @@ public class MenuBar extends JMenuBar{
         add(doctor);
         doctor.add(doctorItem);
 
-        doctorItem=new JMenuItem("Search Doctor");
-        add(doctor);
-        doctor.add(doctorItem);
-
-
-        //view items
-        viewItem=new JMenuItem("Doctors on duty");
-        add(view);
-        view.add(viewItem);
 
         viewItem=new JMenuItem("All Patients");
         add(view);
@@ -89,7 +80,6 @@ public class MenuBar extends JMenuBar{
                 } catch (SQLException | IOException | URISyntaxException e) {
                     e.printStackTrace();
                 }
-
             }
         });
         view.add(viewItem);
