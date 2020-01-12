@@ -1,6 +1,5 @@
 package doctors;
 
-import database_conn.clientDoctor;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -239,14 +238,15 @@ public class gettingAvailableDrs {
     }
 
     //this are getters for other classes to access
+
+    public ArrayList<String>getAllDoctors(){return allDoctors;}
     public ArrayList<String> getAvailableDr(){
         return availableDr;
     }
-
+    public ArrayList<Integer> getDrWorkloads(){return drWorkloads;}
     public ArrayList<String> getNotAvailableToday(){
         return notAvailableToday;
     }
-
     public ArrayList<String> getAvailableNextShift(){
         return availableNextShift;
     }

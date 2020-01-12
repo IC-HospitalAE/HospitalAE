@@ -14,7 +14,8 @@ public class updateLocalDoctorDB {
    private ArrayList<String> doctorsAvailable =getDr.getAvailableDr();
    private ArrayList<String> drNot=getDr.getNotAvailableToday();
    private ArrayList<String> drsOnNextShift=getDr.getAvailableNextShift();
-
+   private ArrayList<Integer> drWorkloads=getDr.getDrWorkloads();
+   private ArrayList<String> allDoctors=getDr.getAllDoctors();
    private ArrayList<String> patientsList=new ArrayList<>();
 
    private connectDatabase conn;
@@ -42,6 +43,13 @@ public class updateLocalDoctorDB {
         for (String name : drNot) {
             String[] split = name.split(" ");
             String sql = "UPDATE doctors SET availability=false WHERE firstname='" + split[0] + "'";
+            s.execute(sql);
+        }
+        //set doctors workload
+        for(int i=0;i<allDoctors.size();i++){
+            String[] split = allDoctors.get(i).split(" ");
+            int work=drWorkloads.get(i);
+            String sql = "UPDATE doctors SET workload='"+work+"' WHERE firstname='" + split[0] + "'";
             s.execute(sql);
         }
 
@@ -78,7 +86,6 @@ public class updateLocalDoctorDB {
         //send email
         if(numOfDr<minNumOfDr){
             sendemail=new sendEmail();
-            System.out.println("SEMT");
         }else{
 
         }

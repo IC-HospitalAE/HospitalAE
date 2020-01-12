@@ -5,6 +5,8 @@ import JSON.patientArray;
 import UI.setupFrame;
 import bed.assignBed;
 import database_conn.connectDatabase;
+import doctors.makePostRequest;
+import doctors.patient_to_doctor;
 import doctors.sendEmail;
 
 import javax.swing.*;
@@ -68,6 +70,10 @@ public class patientForm{
 
     public patientForm(String bed_in) throws SQLException, URISyntaxException, IOException {
 
+        String drassigned=null;
+        String drfist=null;
+        String drlast=null;
+
         //setting frame
         frame.setFrame();
         frame.setTitle("Add patients");
@@ -98,12 +104,6 @@ public class patientForm{
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
                 LocalDateTime now = LocalDateTime.now();
 
-                //this sends the entered info to the patient class
-                Patient patient=new Patient(name,familyname,ID,age,notes,dtf.format(now),phonenumber,bedEntered);
-                patientArray pArray=new patientArray();
-                pArray.addPatient(patient); //add to array
-                //pArray.printPatient(patient); //print it to terminal to debug
-
                 //here goes the JSON conversion and sending to servlet
 //                sendingJSON json= new sendingJSON();
 //                json.PostRequest(patient);
@@ -111,6 +111,12 @@ public class patientForm{
                 //add patient to LOCAL postgres db
                 try{
                     if((bed.isBedEmpty(bedEntered) == true)&&(!name.isEmpty())&&(!familyname.isEmpty())&&(!ID.isEmpty())&&(!phonenumber.isEmpty())){
+
+                        //this sends the entered info to the patient class
+                        Patient patient=new Patient(name,familyname,ID,age,notes,dtf.format(now),phonenumber,bedEntered);
+                        patientArray pArray=new patientArray();
+                        pArray.addPatient(patient); //add to array
+
                         Statement s= conn.createStatement();
                         String sql = "INSERT INTO patients (firstname, lastname, phonenumber, identitynumber, age, notes,admit_status,bednumber,time_date,doctor_incharge) values ('"+name+"','"+familyname+"','"+phonenumber+"','"+ID+"','"+age+"','"+notes+"',true,'"+bedEntered+"','"+dtf.format(now)+"','');";
                         s.execute(sql);
@@ -128,18 +134,23 @@ public class patientForm{
                 }
 
                 try{
-                    String drassigned=null;
                     String timeDate=dtf.format(now);
+                    String DrFirstNameOnly = null;
+                    String DrLastNameOnly=null;
 
                     if(rand()>=0){
-                        drassigned=doctorAvailable.get(rand());
-                        String[] firstnameDr=drassigned.split(" ");
-                        System.out.println(firstnameDr[0]);
+                        String drassigned=doctorAvailable.get(rand());
+                        String[] splitname=drassigned.split(" ");
+                        DrFirstNameOnly=splitname[0];
+                        DrLastNameOnly=splitname[1];
 
                         String sql2="UPDATE beds SET check_in_time='"+timeDate+"' WHERE bed_id='"+bedEntered+"' ";
                         String sql3="UPDATE beds SET patient_id='"+name+"' where bed_id='"+bedEntered+"'";
                         String sql4="UPDATE beds SET doctor_id='"+drassigned+"' WHERE bed_id='"+bedEntered+"'    ;";
-                        String sql5="UPDATE doctors set num_patients=num_patients+1 WHERE firstname = '"+firstnameDr[0]+"';";
+                        String sql5="UPDATE doctors set num_patients=num_patients+1 WHERE firstname = '"+DrFirstNameOnly+"' AND lastname='"+DrLastNameOnly+"';";
+
+                        patient_to_doctor patientToDoctor=new patient_to_doctor(name,familyname,DrFirstNameOnly,DrLastNameOnly);
+                        makePostRequest sendToWebsite=new makePostRequest(patientToDoctor);
 
                         Statement s2=conn.createStatement();
                         s2.execute(sql2);
@@ -153,6 +164,7 @@ public class patientForm{
                 }catch (Exception e){
                     e.printStackTrace();
                 }
+
             }
         });
 
@@ -189,12 +201,13 @@ public class patientForm{
         connectDatabase connect=new connectDatabase();
         Statement st=connect.createStatement();
 
-        String sql="SELECT firstname from doctors where num_patients<4 AND availability=true;";
+        String sql="SELECT firstname,lastname from doctors where num_patients<4 AND availability=true;";
         ResultSet rset=st.executeQuery(sql);
 
         while(rset.next()){
-            String names=rset.getString("firstname");
-            doctorAvailable.add(names);
+            String DRfirstname=rset.getString("firstname");
+            String DRlastname=rset.getString("lastname");
+            doctorAvailable.add(DRfirstname+" "+DRlastname);
         }
 
         int max=doctorAvailable.size(); //highest index
@@ -203,12 +216,10 @@ public class patientForm{
             sendEmail sendmail= new sendEmail();
             return -1;
         }else{
-            System.out.println("no email sent");
+
         }
 
-        System.out.println("max "+max);
         int rand = ThreadLocalRandom.current().nextInt(min, max);
-        System.out.println("Rand "+rand);
 
         connect.close();
         return rand;
