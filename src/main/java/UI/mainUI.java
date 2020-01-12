@@ -36,10 +36,9 @@ public class mainUI {
         viewP.addActionListener(actionEvent -> {
             try {
                 patientsView view= new patientsView();
-            } catch (SQLException e) {
+            } catch (SQLException | IOException | URISyntaxException e) {
                 e.printStackTrace();
             }
-
         });
 
         //view drs

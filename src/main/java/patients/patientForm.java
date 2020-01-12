@@ -194,7 +194,7 @@ public class patientForm{
         frame.add(mainPanel);
     }
 
-    private int rand() throws SQLException {
+    private int rand() throws SQLException, IOException, URISyntaxException {
 
         int min=0; //lowest index
 

@@ -5,6 +5,8 @@ import database_conn.connectDatabase;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,7 +22,7 @@ import java.util.Properties;
 public class sendEmail {
 
         //Start to find data in sql
-    public sendEmail() throws SQLException {
+    public sendEmail() throws SQLException, IOException, URISyntaxException {
         connectDatabase conn=new connectDatabase();
         try {
 

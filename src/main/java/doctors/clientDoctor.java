@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
@@ -23,7 +24,7 @@ public class clientDoctor {
     private HashMap<String, String> doctorAndTimetable = new HashMap<String,String>();
 
 
-    public clientDoctor() throws IOException, SQLException {
+    public clientDoctor() throws IOException, SQLException, URISyntaxException {
         makepostRequest();
     }
 

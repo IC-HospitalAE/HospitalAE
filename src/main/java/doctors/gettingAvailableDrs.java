@@ -1,6 +1,7 @@
 package doctors;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -25,7 +26,7 @@ public class gettingAvailableDrs {
     private ArrayList<String>notAvailableToday=new ArrayList<>(); //drs not available today
     private ArrayList<Integer>drWorkloads=new ArrayList<>();//get the drs workload
 
-    public gettingAvailableDrs() throws IOException, SQLException {
+    public gettingAvailableDrs() throws IOException, SQLException, URISyntaxException {
         decodeTime();
 
     }

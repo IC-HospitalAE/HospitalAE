@@ -3,6 +3,7 @@ package doctors;
 import database_conn.connectDatabase;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -22,12 +23,12 @@ public class updateLocalDoctorDB {
 
    private sendEmail sendemail;
 
-   public updateLocalDoctorDB() throws SQLException, IOException {
+   public updateLocalDoctorDB() throws SQLException, IOException, URISyntaxException {
        setDrAvailability();
        sendEmailToDr();
    }
 
-    public void setDrAvailability() throws SQLException {
+    public void setDrAvailability() throws SQLException, IOException, URISyntaxException {
         conn = new connectDatabase();
         conn.getConnection();
         Statement s = conn.createStatement();
@@ -64,7 +65,7 @@ public class updateLocalDoctorDB {
         conn.close();
     }
 
-    public void sendEmailToDr() throws SQLException {
+    public void sendEmailToDr() throws SQLException, IOException, URISyntaxException {
 
         conn=new connectDatabase();
         conn.getConnection();

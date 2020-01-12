@@ -42,7 +42,7 @@ public class bedMap {
 
     }
 
-    public JPanel bedSetup(String bed_num) throws SQLException, IOException {
+    public JPanel bedSetup(String bed_num) throws SQLException, IOException, URISyntaxException {
 
         JPanel bed_in = new JPanel(new GridLayout(5, 1));
         JLabel patientLabel;
@@ -91,7 +91,7 @@ public class bedMap {
                     String patientName=getPatientName(bed_num);
                     String drname=getDoctorName(bed_num);
                     dischargepatient.discharge(patientName,bed_num,timeDate,drname);
-                } catch (SQLException | IOException e) {
+                } catch (SQLException | IOException | URISyntaxException e) {
                     e.printStackTrace();
                 }
                 bed_in.revalidate();
@@ -125,7 +125,7 @@ public class bedMap {
         return bed_in;
     }
 
-    private JLabel setPatientName(String bed_id) throws SQLException{
+    private JLabel setPatientName(String bed_id) throws SQLException, IOException, URISyntaxException {
         JLabel patientLabel=new JLabel();
 
         if (beds.isBedEmpty(bed_id) == true) {
@@ -135,7 +135,7 @@ public class bedMap {
         }
         return patientLabel;
     }
-    private JLabel setDoctorName(String bed_id) throws SQLException, IOException {
+    private JLabel setDoctorName(String bed_id) throws SQLException, IOException, URISyntaxException {
         JLabel doctorLabel=new JLabel();
 
         if (beds.isBedEmpty(bed_id) == true) {
@@ -146,7 +146,7 @@ public class bedMap {
         return doctorLabel;
     }
 
-    private String getPatientName(String bed_id) throws SQLException {
+    private String getPatientName(String bed_id) throws SQLException, IOException, URISyntaxException {
         connectDatabase conn = new connectDatabase();
         String patientname = new String();
         conn.getConnection();
@@ -163,7 +163,7 @@ public class bedMap {
 
     }
 
-    private String getPatientLastName(String bed_id) throws SQLException{
+    private String getPatientLastName(String bed_id) throws SQLException, IOException, URISyntaxException {
         connectDatabase conn = new connectDatabase();
 
         conn.getConnection();
@@ -179,7 +179,7 @@ public class bedMap {
         return lastname;
     }
 
-    private String getDoctorName(String bed_id) throws IOException, SQLException {
+    private String getDoctorName(String bed_id) throws IOException, SQLException, URISyntaxException {
         String doctor = new String();
 
         connectDatabase conn = new connectDatabase();
