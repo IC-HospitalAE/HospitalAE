@@ -134,7 +134,7 @@ public class initialiseDB {
             String PatientSeq="CREATE SEQUENCE public.patients_id_seq AS integer START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;";
             String pSeq2="ALTER SEQUENCE public.patients_id_seq OWNED BY public.patients.id;";
             String pSeq3="ALTER TABLE ONLY public.patients ALTER COLUMN id SET DEFAULT nextval('public.patients_id_seq'::regclass);";
-            String pSeq4="ALTER TABLE ONLY public.patients ADD CONSTRAINT public.patients.id PRIMARY KEY (id);";
+            String pSeq4="ALTER TABLE ONLY public.patients ADD CONSTRAINT patients_pkey PRIMARY KEY (id);";
 
             Statement s=conn.createStatement();
             s.executeUpdate(createPatientTable);
