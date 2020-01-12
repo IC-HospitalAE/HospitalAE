@@ -101,7 +101,7 @@ public class initialiseDB {
             String drSeq3="ALTER TABLE ONLY public.doctors ALTER COLUMN id SET DEFAULT nextval('public.doctors_id_seq'::regclass);";
             String drSeq4="ALTER TABLE ONLY public.doctors ADD CONSTRAINT doctors_pkey PRIMARY KEY (id);";
 
-            String dr1="INSERT INTO public.doctors (firstname, lastname, identitynumber, email, workload, availability, num_patients, shift) values ('Yunpeng','Li','1','vimalanvijayasekaran@gmail.com','',false,0,'')";
+            String dr1="INSERT INTO public.doctors (firstname, lastname, identitynumber, email, workload, availability, num_patients, shift) values ('Yunpeng','Li','1','yilin.huang17@imperial.ac.uk','',false,0,'')";
             String dr2="INSERT INTO public.doctors (firstname, lastname, identitynumber, email, workload, availability, num_patients, shift) values ('Vimalan','Vijayasekaran','2','vimalanvijayasekaran@gmail.com','',false,0,'')";
             String dr3="INSERT INTO public.doctors (firstname, lastname, identitynumber, email, workload, availability, num_patients, shift) values ('Yilin','Huang','3','vimalanvijayasekaran@gmail.com','',false,0,'')";
             String dr4="INSERT INTO public.doctors (firstname, lastname, identitynumber, email, workload, availability, num_patients, shift) values ('Hongzhang','Chen','4','vimalanvijayasekaran@gmail.com','',false,0,'')";
