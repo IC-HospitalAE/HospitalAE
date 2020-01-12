@@ -32,7 +32,7 @@ public class MenuBar extends JMenuBar{
                     searchPatient remove=new searchPatient();
                     System.out.println("TEST");
 
-                }catch(SQLException | URISyntaxException e){
+                }catch(SQLException | URISyntaxException | IOException e){
                     e.printStackTrace();
                 }
             }
@@ -47,7 +47,7 @@ public class MenuBar extends JMenuBar{
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
                     doctorForm dr = new doctorForm();
-                } catch (SQLException | URISyntaxException e) {
+                } catch (SQLException | URISyntaxException | IOException e) {
                     e.printStackTrace();
                 }
             }
@@ -63,7 +63,7 @@ public class MenuBar extends JMenuBar{
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
                     patientsView pview= new patientsView();
-                } catch (SQLException e) {
+                } catch (SQLException | IOException | URISyntaxException e) {
                     e.printStackTrace();
                 }
             }

@@ -1,12 +1,15 @@
 package patients;
 
 import database_conn.connectDatabase;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class dischargePatient {
 
-    public void discharge(String name,String bednum,String dischageDate,String drname) throws SQLException {
+    public void discharge(String name,String bednum,String dischageDate,String drname) throws SQLException, IOException, URISyntaxException {
 
         System.out.println(drname);
         String[] drFirstname=drname.split(" ");

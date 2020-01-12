@@ -5,6 +5,8 @@ import database_conn.connectDatabase;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -21,7 +23,7 @@ public class patientsView {
 
     private connectDatabase conn=new connectDatabase();
 
-    public patientsView() throws SQLException {
+    public patientsView() throws SQLException, IOException, URISyntaxException {
 
         //setup Frame
         frame.setFrame();

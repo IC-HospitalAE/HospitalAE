@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,7 +37,7 @@ public class searchPatient {
 
     String nameEntered=new String();
 
-    public searchPatient() throws SQLException, URISyntaxException {
+    public searchPatient() throws SQLException, URISyntaxException, IOException {
 
         //gridlayout for patient list
         GridLayout gl=new GridLayout();

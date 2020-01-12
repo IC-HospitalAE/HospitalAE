@@ -1,18 +1,16 @@
 package bed;
 
-import UI.countRowsRequired;
 import database_conn.connectDatabase;
 
 import javax.swing.*;
-import javax.swing.plaf.nimbus.State;
 import java.awt.*;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 public class assignBed {
 
@@ -28,7 +26,7 @@ public class assignBed {
     }
 
     //thesea are all accessed in the bedMap class
-    public void setBedUnavailable(String bed_id_in) throws SQLException {
+    public void setBedUnavailable(String bed_id_in) throws SQLException, IOException, URISyntaxException {
         connectDatabase conn = new connectDatabase();
 
         conn.getConnection();
@@ -39,7 +37,7 @@ public class assignBed {
         conn.close();
     }
 
-    public void setBedAvailable(String bed_id_in) throws SQLException{
+    public void setBedAvailable(String bed_id_in) throws SQLException, IOException, URISyntaxException {
         connectDatabase conn = new connectDatabase();
         conn.getConnection();
         Statement s=conn.createStatement();
@@ -49,7 +47,7 @@ public class assignBed {
         conn.close();
     }
 
-    public JPanel getAvailableBeds() throws SQLException {
+    public JPanel getAvailableBeds() throws SQLException, IOException, URISyntaxException {
         connectDatabase conn = new connectDatabase();
         conn.getConnection();
         Statement s=conn.createStatement();
@@ -75,7 +73,7 @@ public class assignBed {
         return availableBeds;
     }
 
-    public boolean isBedEmpty(String bed_in) throws SQLException {
+    public boolean isBedEmpty(String bed_in) throws SQLException, IOException, URISyntaxException {
         boolean emptyBed=true;
         connectDatabase conn = new connectDatabase();
         conn.getConnection();
@@ -95,7 +93,7 @@ public class assignBed {
     }
 
     //this will get the time shift at which the bed is set patients to
-    public int getBedOccupiedTime(String bed_num) throws SQLException {
+    public int getBedOccupiedTime(String bed_num) throws SQLException, IOException, URISyntaxException {
         connectDatabase conn = new connectDatabase();
         conn.getConnection();
 

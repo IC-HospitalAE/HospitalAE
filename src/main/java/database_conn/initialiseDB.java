@@ -17,6 +17,7 @@ public class initialiseDB {
     private Connection conn;
     String url="jdbc:postgresql://localhost/";
     String dbUrl="jdbc:postgresql://localhost/hospitalae";
+    String user,pass;
 
     public initialiseDB(String username,String password) throws SQLException, IOException, URISyntaxException {
 
@@ -40,6 +41,8 @@ public class initialiseDB {
         }
         catch (Exception e){
         }
+
+        user=username;pass=password;
 
         //connects to newly created database
         conn=DriverManager.getConnection(dbUrl,username,password);
@@ -151,6 +154,15 @@ public class initialiseDB {
 
         //launch the main homepage
         setupMainFrame();
+    }
+    public initialiseDB() throws SQLException, IOException, URISyntaxException {
+
+    }
+    public String getUser(){
+        return user;
+    }
+    public String getPass(){
+        return pass;
     }
 
     private void setupMainFrame() throws SQLException, IOException, URISyntaxException {

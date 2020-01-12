@@ -3,6 +3,8 @@ package UI;
 import database_conn.connectDatabase;
 
 import java.awt.*;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -37,7 +39,7 @@ public class countRowsRequired {
         return count;
     }
 
-    public int getrowCount() throws SQLException {
+    public int getrowCount() throws SQLException, IOException, URISyntaxException {
 
         connectDatabase conn=new connectDatabase();
 

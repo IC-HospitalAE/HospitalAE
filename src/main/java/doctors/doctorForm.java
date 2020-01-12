@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -42,7 +43,7 @@ public class doctorForm {
     private String ID=new String();
     private String email=new String();
 
-    public doctorForm() throws SQLException, URISyntaxException {
+    public doctorForm() throws SQLException, URISyntaxException, IOException {
 
         //setting up frame
         frame.setFrame();
