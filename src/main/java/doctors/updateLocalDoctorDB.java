@@ -48,6 +48,8 @@ public class updateLocalDoctorDB {
         }
         //set doctors workload
         for(int i=0;i<allDoctors.size();i++){
+            System.out.println(allDoctors.size());
+            System.out.println(drWorkloads.size());
             String[] split = allDoctors.get(i).split(" ");
             int work=drWorkloads.get(i);
             String sql = "UPDATE doctors SET workload='"+work+"' WHERE firstname='" + split[0] + "'";

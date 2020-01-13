@@ -200,7 +200,7 @@ public class gettingAvailableDrs {
 
                 if( (day.equals(dayToday)) && timenow==timeDr){
                     availableDr.add(name); //dr avaiable today and on shift now
-                    setWorkload(name);
+
                 }else if( day.equals(dayToday) && timeDr==timenow+1 ){
                     availableNextShift.add(name); //next shift doctor
                 }else{
@@ -210,7 +210,12 @@ public class gettingAvailableDrs {
         }else{
             //doctors not available today
             notAvailableToday.add(name);
-            setWorkload(name);
+
+        }
+
+        for(String n:allDoctors){
+            setWorkload(n);
+
         }
     }
 
